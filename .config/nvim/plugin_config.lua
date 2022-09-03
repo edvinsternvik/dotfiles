@@ -1,11 +1,10 @@
-" -- telescope config
-lua << EOF
-require("telescope").load_extension "file_browser"
-EOF
+-- nvim-autopairs config
+require("nvim-autopairs").setup {}
 
-" -- lualine configuration
-lua << END
+-- telescope config
+require("telescope").load_extension "file_browser"
+
+-- lualine configuration
 require'lualine'.setup {
   options = { theme = 'molokai' }
 }
-END

@@ -7,6 +7,8 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
 
 Plug 'scrooloose/nerdcommenter'
+Plug 'windwp/nvim-autopairs'
+Plug 'tpope/vim-surround'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'tpope/vim-obsession'
 Plug 'nvim-lua/plenary.nvim'

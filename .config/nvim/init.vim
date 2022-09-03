@@ -28,7 +28,7 @@ autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 set splitbelow splitright
 
 " Plugin configurations
-source ~/.config/nvim/plugin_config.vim
+luafile ~/.config/nvim/plugin_config.lua
 
 " Lsp configuration
 luafile ~/.config/nvim/lsp.lua
