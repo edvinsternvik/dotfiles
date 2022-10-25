@@ -68,7 +68,7 @@ local modkey1 = "Control"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.util.terminal = terminal
-awful.util.tagnames = { " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 " }
+awful.util.tagnames = { " 1 ", " 2 ", " 3 ", " 4 ", " 5 " }
 awful.layout.layouts = {
     awful.layout.suit.tile,
     --awful.layout.suit.spiral.dwindle
@@ -489,7 +489,7 @@ awful.rules.rules = {
     { rule_any = {type = { "normal", "dialog" }
       }, properties = { titlebars_enabled = false }
     },
-    { rule = {}, callback = function(c) c.shape = gears.shape.rounded_rect end },
+    --{ rule = {}, callback = function(c) c.shape = gears.shape.rounded_rect end },
     --{ rule = {}, callback = function(c) c.border_width = 0 end },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -570,5 +570,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Startup programs
 awful.spawn.with_shell("nitrogen --restore") -- Set wallpaper
 awful.spawn.with_shell("picom --config ~/.config/picom/picom.conf --experimental-backend") -- Start compositor
-awful.spawn.with_shell("nm-applet") -- Start network manager icon
 awful.spawn.with_shell("setxkbmap -option caps:escape") -- Remap capslock to escape

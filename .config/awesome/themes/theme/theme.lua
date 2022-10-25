@@ -21,7 +21,7 @@ theme.battery_font  = "sans 8"
 theme.net_font      = "sans 10"
 
 theme.bg_normal     = "#000000CC"
-theme.bg_focus      = "#d42e26" 
+theme.bg_focus      = "#d42e26"
 theme.bg_urgent     = "#ff0000"
 theme.bg_minimize   = "#444444"
 theme.bg_systray    = theme.bg_normal

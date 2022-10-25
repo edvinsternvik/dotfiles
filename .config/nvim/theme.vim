@@ -5,6 +5,7 @@ hi MatchParen guifg=#FD971F guibg=#000000 gui=bold
 
 " Set background semi transparent
 hi Normal     guifg=NONE    guibg=NONE
+hi LineNr     guibg=NONE
 
 " Set colors
 if (has("termguicolors"))

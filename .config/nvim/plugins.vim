@@ -16,5 +16,8 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 
+Plug 'neovimhaskell/haskell-vim'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+
 Plug 'tomasr/molokai'
 call plug#end()
