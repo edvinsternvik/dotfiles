@@ -17,9 +17,7 @@ local markup = lain.util.markup
 local theme = {}
 
 theme.font          = "sans 8"
-theme.volume_font   = "sans 12"
-theme.battery_font  = "sans 8"
-theme.net_font      = "sans 10"
+theme.battery_font  = "sans 9"
 
 theme.bg_normal     = "#000000CC"
 theme.bg_focus      = "#d42e26"
@@ -162,33 +160,33 @@ theme.battery = lain.widget.bat({
     settings = function()
         if bat_now.status and bat_now.status ~= "N/A" then
             if bat_now.ac_status == 1 then
-                if not bat_now.perc and tonumber(bat_now.perc) <= 15 then
+                if bat_now.perc and tonumber(bat_now.perc) <= 15 then
                     theme.battery_icon:set_image(theme.battery_critical_charging_icon)
-                elseif not bat_now.perc and tonumber(bat_now.perc) <= 25 then
+                elseif bat_now.perc and tonumber(bat_now.perc) <= 25 then
                     theme.battery_icon:set_image(theme.battery_low_charging_icon)
-                elseif not bat_now.perc and tonumber(bat_now.perc) <= 50 then
+                elseif bat_now.perc and tonumber(bat_now.perc) <= 50 then
                     theme.battery_icon:set_image(theme.battery_medium_charging_icon)
-                elseif not bat_now.perc and tonumber(bat_now.perc) <= 75 then
+                elseif bat_now.perc and tonumber(bat_now.perc) <= 75 then
                     theme.battery_icon:set_image(theme.battery_high_charging_icon)
                 else
                     theme.battery_icon:set_image(theme.battery_full_charging_icon)
                 end
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 15 then
+            elseif bat_now.perc and tonumber(bat_now.perc) <= 15 then
                 theme.battery_icon:set_image(theme.battery_critical_icon)
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 25 then
+            elseif bat_now.perc and tonumber(bat_now.perc) <= 25 then
                 theme.battery_icon:set_image(theme.battery_low_icon)
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 50 then
+            elseif bat_now.perc and tonumber(bat_now.perc) <= 50 then
                 theme.battery_icon:set_image(theme.battery_medium_icon)
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 75 then
+            elseif bat_now.perc and tonumber(bat_now.perc) <= 75 then
                 theme.battery_icon:set_image(theme.battery_high_icon)
             else
                 theme.battery_icon:set_image(theme.battery_full_icon)
             end
 
-            widget:set_markup(markup.font(theme.font, bat_now.perc .. "%"))
+            widget:set_markup(markup.font(theme.battery_font, bat_now.perc .. "%"))
         else
             theme.battery_icon:set_image(theme.ac_icon)
-            widget:set_markup(markup.font(theme.font, ""))
+            widget:set_markup(markup.font(theme.battery_font, ""))
         end
     end,
     timeout = 5,
@@ -206,36 +204,36 @@ theme.net = lain.widget.net {
             if network_device.ethernet then
                 if network_device.state == "up" then
                     theme.net_icon:set_image(theme.ethernet_icon)
+
+                    break
                 else
                     theme.net_icon:set_image(theme.ethernet_no_connection_icon)
                 end
-
-                break
             end
 
             if network_device.wifi then
                 if network_device.state == "up" then
-                    if network_device.wifi.signal < -83 then
-                        wifi_icon:set_image(theme.wifi_low_icon)
-                    elseif network_device.wifi.signal < -70 then
-                        wifi_icon:set_image(theme.wifi_medium_icon)
-                    elseif network_device.wifi.signal < -53 then
-                        wifi_icon:set_image(theme.wifi_full_icon)
-                    elseif network_device.wifi.signal >= -53 then
-                        wifi_icon:set_image(theme.wifi_full_icon)
+                    if network_device.signal < -83 then
+                        theme.net_icon:set_image(theme.wifi_low_icon)
+                    elseif network_device.signal < -70 then
+                        theme.net_icon:set_image(theme.wifi_medium_icon)
+                    elseif network_device.signal < -53 then
+                        theme.net_icon:set_image(theme.wifi_full_icon)
+                    else
+                        theme.net_icon:set_image(theme.wifi_full_icon)
                     end
+
+                    break
                 else
                     theme.net_icon:set_image(theme.wifi_no_signal_icon)
                 end
-
-                break
             end
         end
     end
 } 
 local netwidget = wibox.container.margin(theme.net_icon, dpi(2), dpi(2), dpi(2), dpi(2))
 
-theme.net.widget:connect_signal("button::press", function() awful.spawn(string.format("%s -e wavemon", awful.util.terminal)) end)
+netwidget:connect_signal("button::press", function() awful.spawn(string.format("%s -e nmtui connect", awful.util.terminal)) end)
 
 -- Misc
 theme.separator = wibox.widget.textbox("   ")
