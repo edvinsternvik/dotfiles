@@ -1,0 +1,27 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2_65)">
+<mask id="mask0_2_65" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="10" y="10" width="109" height="109">
+<path d="M110 10H19C14.0294 10 10 14.0294 10 19V110C10 114.971 14.0294 119 19 119H110C114.971 119 119 114.971 119 110V19C119 14.0294 114.971 10 110 10Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_2_65)">
+<path d="M110 10H19C14.0294 10 10 14.0294 10 19V110C10 114.971 14.0294 119 19 119H110C114.971 119 119 114.971 119 110V19C119 14.0294 114.971 10 110 10Z" stroke="black" stroke-width="20"/>
+<path d="M37 83H11V114H37V83Z" fill="black"/>
+<path d="M37 83H11V114H37V83Z" fill="black"/>
+<path d="M48 92H17V114H48V92Z" fill="black"/>
+<path d="M48 92H17V114H48V92Z" fill="black"/>
+<path d="M92 83H118V114H92V83Z" fill="black"/>
+<path d="M92 83H118V114H92V83Z" fill="black"/>
+<path d="M81 92H112V114H81V92Z" fill="black"/>
+<path d="M81 92H112V114H81V92Z" fill="black"/>
+<path d="M42 10H30V38H42V10Z" fill="black"/>
+<path d="M60 10H48V38H60V10Z" fill="black"/>
+<path d="M79 10H67V38H79V10Z" fill="black"/>
+<path d="M98 10H86V38H98V10Z" fill="black"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_2_65">
+<rect width="128" height="128" fill="white"/>
+</clipPath>
+</defs>
+</svg>

@@ -1,12 +1,13 @@
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
+local beautiful = require("beautiful")
 local dpi = xresources.apply_dpi
 
 local gfs = require("gears.filesystem")
 local gears = require("gears")
 local awful = require("awful")
 local wibox = require("wibox")
-local themes_path = "~/.config/awesome/themes/"
+local themes_path = ".config/awesome/themes/"
 local theme_path = themes_path.."theme/"
 local icons_path = theme_path.."icons/"
 
@@ -37,6 +38,10 @@ theme.border_normal = "#000000"
 theme.border_focus  = "#d42e26"
 theme.border_marked = "#91231c"
 
+beautiful.tooltip_border_color = theme.border_focus
+beautiful.tooltip_bg = theme.bg_normal
+beautiful.tooltip_border_width = 1
+
 -- Generate taglist squares:
 local taglist_square_size = dpi(4)
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
@@ -61,15 +66,35 @@ theme.menu_height = dpi(15)
 theme.menu_width  = dpi(100)
 
 -- Define the image to load
-theme.vol_mute_icon = icons_path.."vol_mute.png"
-theme.vol_no_icon = icons_path.."vol_no.png"
-theme.vol_low_icon = icons_path.."vol_low.png"
-theme.vol_full_icon = icons_path.."vol.png"
+function load_icon(icon_name)
+    return gears.color.recolor_image(icons_path..icon_name, theme.fg_normal)
+end
 
-theme.bat_ac_icon = icons_path.."ac.png"
-theme.bat_empty_icon = icons_path.."battery_empty.png"
-theme.bat_low_icon = icons_path.."battery_low.png"
-theme.bat_full_icon = icons_path.."battery.png"
+theme.speaker_muted_icon = load_icon("speaker_muted.svg")
+theme.speaker_off_icon = load_icon("speaker_off.svg")
+theme.speaker_low_icon = load_icon("speaker_low.svg")
+theme.speaker_medium_icon = load_icon("speaker_medium.svg")
+theme.speaker_full_icon = load_icon("speaker_full.svg")
+
+theme.ac_icon = load_icon("ac.svg")
+theme.battery_critical_icon = load_icon("battery_critical.svg")
+theme.battery_low_icon = load_icon("battery_low.svg")
+theme.battery_medium_icon = load_icon("battery_medium.svg")
+theme.battery_high_icon = load_icon("battery_high.svg")
+theme.battery_full_icon = load_icon("battery_full.svg")
+
+theme.battery_critical_charging_icon = load_icon("battery_critical_charging.svg")
+theme.battery_low_charging_icon = load_icon("battery_low_charging.svg")
+theme.battery_medium_charging_icon = load_icon("battery_medium_charging.svg")
+theme.battery_high_charging_icon = load_icon("battery_high_charging.svg")
+theme.battery_full_charging_icon = load_icon("battery_full_charging.svg")
+
+theme.ethernet_icon = load_icon("ethernet.svg")
+theme.ethernet_no_connection_icon = load_icon("ethernet_no_connection.svg")
+theme.wifi_no_signal_icon = load_icon("wifi_no_signal.svg")
+theme.wifi_low_icon = load_icon("wifi_low.svg")
+theme.wifi_medium_icon = load_icon("wifi_medium.svg")
+theme.wifi_full_icon = load_icon("wifi_full.svg")
 
 --theme.wallpaper = theme_path.."wallpaper/background.png"
 theme.wallpaper = nil
@@ -96,20 +121,21 @@ theme.cal = lain.widget.cal({
 })
 
 -- ALSA volume
-theme.volume_icon = wibox.widget.textbox()
-theme.volume_icon.markup = markup.font(theme.volume_font, "")
+theme.volume_icon = wibox.widget.imagebox(theme.speaker_off_icon)
 theme.volume = lain.widget.alsabar {
     width = dpi(50), border_width = 0, ticks = false, ticks_size = dpi(5),
     notification_preset = { font = theme.font },
     settings = function()
         if volume_now.status == "off" then
-            theme.volume_icon.markup = markup.font(theme.volume_font, "")
+            theme.volume_icon:set_image(theme.speaker_muted_icon)
         elseif tonumber(volume_now.level) == 0 then
-            theme.volume_icon.markup = markup.font(theme.volume_font, "")
+            theme.volume_icon:set_image(theme.speaker_off_icon)
+        elseif tonumber(volume_now.level) <= 25 then
+            theme.volume_icon:set_image(theme.speaker_low_icon)
         elseif tonumber(volume_now.level) <= 50 then
-            theme.volume_icon.markup = markup.font(theme.volume_font, "")
+            theme.volume_icon:set_image(theme.speaker_medium_icon)
         else
-            theme.volume_icon.markup = markup.font(theme.volume_font, "")
+            theme.volume_icon:set_image(theme.speaker_full_icon)
         end
     end,
     colors = {
@@ -118,6 +144,11 @@ theme.volume = lain.widget.alsabar {
         unmute       = theme.fg_normal
     }
 }
+local volumewidget = wibox.container.margin(theme.volume_icon, dpi(2), dpi(2), dpi(2), dpi(2))
+
+theme.volume.tooltip.wibox.fg = theme.fg_focus
+local volumebg = wibox.container.background(theme.volume.bar, theme.fg_normal, gears.shape.rectangle)
+local volumebarwidget = wibox.container.margin(volumebg, dpi(2), dpi(7), dpi(4), dpi(4))
 
 theme.volume.bar:buttons(awful.util.table.join (
     awful.button({}, 1, function()
@@ -125,63 +156,58 @@ theme.volume.bar:buttons(awful.util.table.join (
     end)
 ))
 
-theme.volume.tooltip.wibox.fg = theme.fg_focus
-local volumebg = wibox.container.background(theme.volume.bar, "#474747", gears.shape.rectangle)
-local volumewidget = wibox.container.margin(volumebg, dpi(2), dpi(7), dpi(4), dpi(4))
-
 -- Battery
-theme.battery_icon = wibox.widget.textbox()
-theme.battery_icon.markup = markup.font(theme.battery_font, " ")
-
+theme.battery_icon = wibox.widget.imagebox(theme.battery_full_icon)
 theme.battery = lain.widget.bat({
     settings = function()
         if bat_now.status and bat_now.status ~= "N/A" then
             if bat_now.ac_status == 1 then
-                widget:set_markup(markup.font(theme.font, "AC "))
-                theme.battery_icon.markup = markup.font(theme.battery_font, " ")
-                return
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 10 then
-                theme.battery_icon.markup = markup.font(theme.battery_font, " ")
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 20 then
-                theme.battery_icon.markup = markup.font(theme.battery_font, " ")
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 40 then
-                theme.battery_icon.markup = markup.font(theme.battery_font, " ")
+                if not bat_now.perc and tonumber(bat_now.perc) <= 15 then
+                    theme.battery_icon:set_image(theme.battery_critical_charging_icon)
+                elseif not bat_now.perc and tonumber(bat_now.perc) <= 25 then
+                    theme.battery_icon:set_image(theme.battery_low_charging_icon)
+                elseif not bat_now.perc and tonumber(bat_now.perc) <= 50 then
+                    theme.battery_icon:set_image(theme.battery_medium_charging_icon)
+                elseif not bat_now.perc and tonumber(bat_now.perc) <= 75 then
+                    theme.battery_icon:set_image(theme.battery_high_charging_icon)
+                else
+                    theme.battery_icon:set_image(theme.battery_full_charging_icon)
+                end
+            elseif not bat_now.perc and tonumber(bat_now.perc) <= 15 then
+                theme.battery_icon:set_image(theme.battery_critical_icon)
+            elseif not bat_now.perc and tonumber(bat_now.perc) <= 25 then
+                theme.battery_icon:set_image(theme.battery_low_icon)
             elseif not bat_now.perc and tonumber(bat_now.perc) <= 50 then
-                theme.battery_icon.markup = markup.font(theme.battery_font, " ")
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 60 then
-                theme.battery_icon.markup = markup.font(theme.battery_font, " ")
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 70 then
-                theme.battery_icon.markup = markup.font(theme.battery_font, " ")
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 80 then
-                theme.battery_icon.markup = markup.font(theme.battery_font, " ")
-            elseif not bat_now.perc and tonumber(bat_now.perc) <= 90 then
-                theme.battery_icon.markup = markup.font(theme.battery_font, " ")
+                theme.battery_icon:set_image(theme.battery_medium_icon)
+            elseif not bat_now.perc and tonumber(bat_now.perc) <= 75 then
+                theme.battery_icon:set_image(theme.battery_high_icon)
             else
-                theme.battery_icon.markup = markup.font(theme.battery_font, " ")
+                theme.battery_icon:set_image(theme.battery_full_icon)
             end
 
-            widget:set_markup(markup.font(theme.font, battery_symbol .. " " .. bat_now.perc .. "%"))
+            widget:set_markup(markup.font(theme.font, bat_now.perc .. "%"))
         else
-            theme.battery_icon.markup = markup.font(theme.battery_font, " ")
+            theme.battery_icon:set_image(theme.ac_icon)
+            widget:set_markup(markup.font(theme.font, ""))
         end
     end,
     timeout = 5,
 })
+local batterywidget = wibox.container.margin(theme.battery_icon, dpi(2), dpi(2), dpi(2), dpi(2))
 
 -- Net
+theme.net_icon = wibox.widget.imagebox(theme.ethernet_no_connection_icon)
 theme.net = lain.widget.net {
     notify = "off",
     wifi_state = "on",
     eth_state = "on",
     settings = function()
-        local network_symbol = ""
-
         for device_name,network_device in pairs(net_now.devices) do
             if network_device.ethernet then
                 if network_device.state == "up" then
-                    network_symbol = ""
+                    theme.net_icon:set_image(theme.ethernet_icon)
                 else
-                    network_symbol = ""
+                    theme.net_icon:set_image(theme.ethernet_no_connection_icon)
                 end
 
                 break
@@ -189,23 +215,30 @@ theme.net = lain.widget.net {
 
             if network_device.wifi then
                 if network_device.state == "up" then
-                    network_symbol = "直"
+                    if network_device.wifi.signal < -83 then
+                        wifi_icon:set_image(theme.wifi_low_icon)
+                    elseif network_device.wifi.signal < -70 then
+                        wifi_icon:set_image(theme.wifi_medium_icon)
+                    elseif network_device.wifi.signal < -53 then
+                        wifi_icon:set_image(theme.wifi_full_icon)
+                    elseif network_device.wifi.signal >= -53 then
+                        wifi_icon:set_image(theme.wifi_full_icon)
+                    end
                 else
-                    network_symbol = "睊"
+                    theme.net_icon:set_image(theme.wifi_no_signal_icon)
                 end
 
                 break
             end
         end
-
-        widget:set_markup(markup.font(theme.net_font, network_symbol))
     end
 } 
+local netwidget = wibox.container.margin(theme.net_icon, dpi(2), dpi(2), dpi(2), dpi(2))
 
 theme.net.widget:connect_signal("button::press", function() awful.spawn(string.format("%s -e wavemon", awful.util.terminal)) end)
 
 -- Misc
-theme.separator = wibox.widget.textbox("  ")
+theme.separator = wibox.widget.textbox("   ")
 
 -- 
 function theme.at_screen_connect(s)
@@ -222,54 +255,54 @@ function theme.at_screen_connect(s)
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
 
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist {
-        screen  = s,
-        filter  = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons
-    }
+-- Create a taglist widget
+s.mytaglist = awful.widget.taglist {
+    screen  = s,
+    filter  = awful.widget.taglist.filter.all,
+    buttons = awful.util.taglist_buttons,
+}
 
-    -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+-- Create the wibox
+s.mywibox = awful.wibar({ position = "top", screen = s })
 
-    -- Add widgets to the wibox
-    s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            mylauncher,
-            s.mytaglist,
-            s.mypromptbox,
-        },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
+-- Add widgets to the wibox
+s.mywibox:setup {
+    layout = wibox.layout.align.horizontal,
+    { -- Left widgets
+        layout = wibox.layout.fixed.horizontal,
+        mylauncher,
+        s.mytaglist,
+        s.mypromptbox,
+    },
+    s.mytasklist, -- Middle widget
+    { -- Right widgets
+        layout = wibox.layout.fixed.horizontal,
 
-            mykeyboardlayout,
+        mykeyboardlayout,
 
-            wibox.widget.systray(),
+        wibox.widget.systray(),
 
-            theme.separator,
+        theme.separator,
 
-            theme.volume_icon,
-            volumewidget,
+        volumewidget,
+        volumebarwidget,
 
-            theme.separator,
+        theme.separator,
 
-            theme.battery_icon,
-            theme.battery,
+        batterywidget,
+        theme.battery.widget,
 
-            theme.separator,
+        theme.separator,
 
-            theme.net.widget,
+        netwidget,
 
-            theme.separator,
+        theme.separator,
 
-            mytextclock,
+        mytextclock,
 
-            s.mylayoutbox,
-        },
-    }
+        s.mylayoutbox,
+    },
+}
 end
 
 return theme
