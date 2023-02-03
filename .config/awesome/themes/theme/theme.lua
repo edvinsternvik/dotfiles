@@ -19,7 +19,7 @@ local theme = {}
 theme.font          = "sans 8"
 theme.battery_font  = "sans 9"
 
-theme.bg_normal     = "#000000CC"
+theme.bg_normal     = "#000000AA"
 theme.bg_focus      = "#d42e26"
 theme.bg_urgent     = "#ff0000"
 theme.bg_minimize   = "#444444"
@@ -108,6 +108,7 @@ theme.icon_theme = nil
 
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
+mytextclock.refresh = 5
 theme.cal = lain.widget.cal({
     attach_to = { mytextclock },
     notification_preset = {
@@ -253,54 +254,54 @@ function theme.at_screen_connect(s)
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
 
--- Create a taglist widget
-s.mytaglist = awful.widget.taglist {
-    screen  = s,
-    filter  = awful.widget.taglist.filter.all,
-    buttons = awful.util.taglist_buttons,
-}
+    -- Create a taglist widget
+    s.mytaglist = awful.widget.taglist {
+        screen  = s,
+        filter  = awful.widget.taglist.filter.all,
+        buttons = awful.util.taglist_buttons,
+    }
 
--- Create the wibox
-s.mywibox = awful.wibar({ position = "top", screen = s })
+    -- Create the wibox
+    s.mywibox = awful.wibar({ position = "top", screen = s })
 
--- Add widgets to the wibox
-s.mywibox:setup {
-    layout = wibox.layout.align.horizontal,
-    { -- Left widgets
-        layout = wibox.layout.fixed.horizontal,
-        mylauncher,
-        s.mytaglist,
-        s.mypromptbox,
-    },
-    s.mytasklist, -- Middle widget
-    { -- Right widgets
-        layout = wibox.layout.fixed.horizontal,
+    -- Add widgets to the wibox
+    s.mywibox:setup {
+        layout = wibox.layout.align.horizontal,
+        { -- Left widgets
+            layout = wibox.layout.fixed.horizontal,
+            mylauncher,
+            s.mytaglist,
+            s.mypromptbox,
+        },
+        s.mytasklist, -- Middle widget
+        { -- Right widgets
+            layout = wibox.layout.fixed.horizontal,
 
-        mykeyboardlayout,
+            mykeyboardlayout,
 
-        wibox.widget.systray(),
+            wibox.widget.systray(),
 
-        theme.separator,
+            theme.separator,
 
-        volumewidget,
-        volumebarwidget,
+            volumewidget,
+            volumebarwidget,
 
-        theme.separator,
+            theme.separator,
 
-        batterywidget,
-        theme.battery.widget,
+            batterywidget,
+            theme.battery.widget,
 
-        theme.separator,
+            theme.separator,
 
-        netwidget,
+            netwidget,
 
-        theme.separator,
+            theme.separator,
 
-        mytextclock,
+            mytextclock,
 
-        s.mylayoutbox,
-    },
-}
+            s.mylayoutbox,
+        },
+    }
 end
 
 return theme

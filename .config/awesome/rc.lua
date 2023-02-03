@@ -53,7 +53,7 @@ beautiful.init(theme_path)
 local browser     = "firefox"
 local editor      = os.getenv("EDITOR") or "vim"
 local editorgui   = "vim"
-local filemanager = "thunar"
+local filemanager = "alacritty -e lf"
 local mediaplayer = "vlc"
 local terminal    = "alacritty"
 
@@ -323,7 +323,17 @@ globalkeys = gears.table.join(
         function ()
             os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
             beautiful.volume.update()
-        end)
+        end),
+
+    -- Media controls
+    awful.key({ }, "XF86AudioPause", function () os.execute("playerctl play-pause") end,
+              {description = "Play/Pause media", group = "hotkeys"}),
+    awful.key({ }, "XF86AudioPlay", function () os.execute("playerctl play-pause") end,
+              {description = "Play/Pause media", group = "hotkeys"}),
+    awful.key({ }, "XF86AudioPrev", function () os.execute("playerctl previous") end,
+              {description = "Previous media", group = "hotkeys"}),
+    awful.key({ }, "XF86AudioNext", function () os.execute("playerctl next") end,
+              {description = "Next media", group = "hotkeys"})
 )
 
 clientkeys = gears.table.join(
@@ -471,12 +481,14 @@ awful.rules.rules = {
           "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
           "Wpa_gui",
           "veromix",
-          "xtightvncviewer"},
+          "xtightvncviewer",
+        },
 
         -- Note that the name property shown in xprop might be set slightly after creation of the client
         -- and the name shown there might not match defined rules here.
         name = {
           "Event Tester",  -- xev.
+          "zoom"
         },
         role = {
           "AlarmWindow",  -- Thunderbird's calendar.
@@ -558,6 +570,9 @@ client.connect_signal("request::titlebars", function(c)
     }
 end)
 
+-- Reduce the size of notification icons
+naughty.config.defaults['icon_size'] = 64
+
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = false})
@@ -569,5 +584,5 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- Startup programs
 awful.spawn.with_shell("nitrogen --restore") -- Set wallpaper
-awful.spawn.with_shell("picom --config ~/.config/picom/picom.conf --experimental-backend") -- Start compositor
+awful.spawn.with_shell("picom --config ~/.config/picom/picom.conf") -- Start compositor
 awful.spawn.with_shell("setxkbmap -option caps:escape") -- Remap capslock to escape
