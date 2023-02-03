@@ -21,6 +21,8 @@ set number relativenumber
 set hidden
 syntax on
 
+autocmd Filetype c,cpp,cs,java setlocal commentstring=//\ %s
+
 " Disable continuation of comments when creating new lines
 autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 

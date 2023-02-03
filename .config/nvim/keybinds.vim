@@ -1,7 +1,5 @@
 let mapleader=" "
 
-vmap <C-k> <plug>NERDCommenterToggle \| gv
-
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
@@ -18,9 +16,18 @@ noremap <silent> <C-Down> :resize -5<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-"Clear the "last search pattern" register on escape
+" Clear the "last search pattern" register on escape
 nmap <esc> :noh<CR>
 
-"
+" Comment
+nmap <leader>k gcc
+
+" Comment and keep selection
+vmap <leader>k gcgv
+
+" Only use global marks, and keep last visited position instead of going to the marked position
+nnoremap <silent> ' :execute 'buffer' getpos("'" . toupper(nr2char(getchar()) ))[0]<cr>
+nnoremap <silent> <expr> m "m".toupper(nr2char(getchar()))
+
 " Go to header/cpp file
 autocmd FileType cpp,h nnoremap <buffer> <A-o> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
