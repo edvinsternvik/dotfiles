@@ -1,5 +1,8 @@
 set number true
 set relativenumber true
+set ifs "\n"
+
+map f fzf_jump
 
 cmd open &{{
     case $(file --mime-type -Lb $f) in
@@ -14,17 +17,20 @@ cmd mkdir %{{
     mkdir $ans
 }}
 
-cmd mkfile %{{
-    printf "File name: "
-    read ans
-    $EDITOR $ans
+cmd trash ${{
+    trash-put $fx
 }}
 
-cmd trash ${{
-    for file in "$fx"
-    do
-        trash-put "$(basename "$file")"
-    done
+cmd fzf_jump ${{
+    res="$(find . -maxdepth 1 | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    if [ -d "$res" ] ; then
+        cmd="cd"
+    elif [ -f "$res" ] ; then
+        cmd="select"
+    else
+        exit 0
+    fi
+    lf -remote "send $id $cmd \"$res\""
 }}
 
 # extract the current file
