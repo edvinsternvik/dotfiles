@@ -1,0 +1,8 @@
+#!/bin/bash
+
+TEMPLATE_PATH=/home/edvin/Programming/codeforces/template.cpp
+FILE=$1.cpp
+
+if  [[ ! -f "$FILE" ]]; then
+    cp "$TEMPLATE_PATH" $FILE && nvim $FILE
+fi
