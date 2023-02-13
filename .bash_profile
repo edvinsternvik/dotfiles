@@ -4,6 +4,6 @@
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-	exec startx ~/.config/x11/xinitrc
-fi
+# if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+# 	exec ly
+# fi
