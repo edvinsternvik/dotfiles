@@ -7,14 +7,14 @@
 }
 
 window#waybar {
-    background-color: rgba(21, 18, 27, 0.0);
+    background-color: rgba(25, 23, 25, 0.0);
     color: #cdd6f4;
     transition-property: background-color;
     transition-duration: .5s;
 }
 
 tooltip {
-    background: rgba(25, 23, 25, 0.9);
+    background: rgba(25, 23, 25, 0.8);
     border-radius: 4px;
     border-width: 1px;
     border-style: solid;
@@ -62,7 +62,7 @@ window#waybar.hidden {
 #workspaces,
 #tray,
 #backlight {
-    background: rgba(30, 30, 46, 0.6);
+    background: rgba(25, 23, 25, 0.7);
     padding: 2px 10px;
     margin: 0px 0px;
     margin-top: 4px;
@@ -101,7 +101,7 @@ window#waybar.hidden {
 }
 
 #window {
-    background: rgba(30, 30, 46, 0.0);
+    background: rgba(25, 23, 25, 0.0);
     min-width: 800px;
     margin-right: 60px;
 }
