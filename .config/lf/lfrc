@@ -4,10 +4,10 @@ set ifs "\n"
 
 map f fzf_jump
 
-cmd open &{{
-    case $(file --mime-type -Lb $f) in
-        text/*) lf -remote "send $id \$$EDITOR \$fx";;
-        *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+cmd open ${{
+    case $(file --mime-type "$f" -bL) in
+        text/*|application/json) $EDITOR "$fx";;
+        *) for f in "$fx"; do xdg-open "$f"> /dev/null 2> /dev/null & done;;
     esac
 }}
 
