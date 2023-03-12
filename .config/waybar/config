@@ -9,6 +9,31 @@
     "modules-right": ["pulseaudio", "network", "cpu", "memory", "battery", "clock", "tray"],
 
     // Modules configuration
+    "wlr/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "format-icons": {
+            "11": "1",
+            "12": "2",
+            "13": "3",
+            "14": "4",
+            "15": "5",
+            "16": "6",
+            "17": "7",
+            "18": "8",
+            "19": "9",
+            "21": "1",
+            "22": "2",
+            "23": "3",
+            "24": "4",
+            "25": "5",
+            "26": "6",
+            "27": "7",
+            "28": "8",
+            "29": "9",
+        },
+        "sort-by-number": true
+    },
     "tray": {
         "icon-size": 21,
         "spacing": 10
