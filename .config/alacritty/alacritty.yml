@@ -18,7 +18,7 @@ font:
     family: "Hack Nerd Font"
     style: Bold Italic
 
-  size: 10.0
+  size: 9.0
 
 scrolling:
   history: 10000
@@ -29,7 +29,7 @@ colors:
   name: Atelierforest (dark)
   author: Chris Kempson
   primary:
-    background: "#1b1918"
+    background: "#191719"
     foreground: "#a8a19f"
   cursor:
     text: "#1b1918"
