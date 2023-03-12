@@ -5,6 +5,8 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fe <cmd>Telescope file_browser<cr>
+nnoremap <leader>fr <cmd>Telescope lsp_references<cr>
+nnoremap <leader>gs <cmd>Telescope git_status<cr>
 
 " Splits
 noremap <silent> <C-Left> :vertical resize +5<CR>
