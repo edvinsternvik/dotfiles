@@ -105,8 +105,3 @@ window#waybar.hidden {
     min-width: 800px;
     margin-right: 60px;
 }
-
-#tray {
-    border-radius: 10px;
-    margin-right: 100px;
-}
