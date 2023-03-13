@@ -1,0 +1,15 @@
+
+[Default Applications]
+inode/directory: alacritty -e lf
+text/: alacritty -e nvim
+x-scheme-handler/http=chromium.desktop
+x-scheme-handler/https=chromium.desktop
+x-scheme-handler/about=chromium.desktop
+x-scheme-handler/unknown=chromium.desktop
+
+image/png=mupdf.desktop
+image/jpeg=mupdf.desktop
+image/bmp=mupdf.desktop
+image/gif=mupdf.desktop
+application/pdf=mupdf.desktop
+text/html=chromium.desktop
