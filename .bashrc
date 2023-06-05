@@ -5,10 +5,11 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export EDITOR=nvim
-export VISUAL=nvim
-export PATH="$PATH:/$HOME/bin"
+export EDITOR="nvim"
+export VISUAL="nvim"
+export PATH="$PATH:/$HOME/bin:/$HOME/.cargo/bin"
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
+alias krita='krita --nosplash'
 PS1='\[\e[0m\][\[\e[0;36m\]\w\[\e[0m\]] \[\e[0;1;31m\]-\[\e[0;1;31m\]> \[\e[0m\]$()\[\e[0m\]'
