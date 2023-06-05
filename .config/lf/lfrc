@@ -7,7 +7,7 @@ map f fzf_jump
 cmd open ${{
     case $(file --mime-type "$f" -bL) in
         text/*|application/json) $EDITOR "$fx";;
-        *) for f in "$fx"; do xdg-open "$f"> /dev/null 2> /dev/null & done;;
+        *) for f in "$fx"; do nohup xdg-open "$f" > /dev/null 2> /dev/null & done;;
     esac
 }}
 
@@ -61,3 +61,5 @@ cmd zip ${{
     zip -r $1.zip $1
     rm -rf $1
 }}
+
+cmd drag %dragon-drop -a -x $fx
