@@ -34,3 +34,5 @@ luafile ~/.config/nvim/plugin_config.lua
 
 " Lsp configuration
 luafile ~/.config/nvim/lsp.lua
+
+let g:hardtime_default_on = 1

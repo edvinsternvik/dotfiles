@@ -1,10 +1,8 @@
 
 [Default Applications]
-inode/directory: alacritty -e lf
-text/: alacritty -e nvim
-
-image/png=mupdf.desktop
-image/jpeg=mupdf.desktop
-image/bmp=mupdf.desktop
-image/gif=mupdf.desktop
-application/pdf=mupdf.desktop
+image/png=imv.desktop
+image/jpeg=imv.desktop
+image/bmp=imv.desktop
+image/gif=imv.desktop
+image/svg+xml=imv.desktop
+application/pdf=org.pwmt.zathura.desktop

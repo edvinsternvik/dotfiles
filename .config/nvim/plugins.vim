@@ -15,6 +15,8 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'ggandor/leap.nvim'
+Plug 'takac/vim-hardtime'
 
 Plug 'neovimhaskell/haskell-vim'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
