@@ -4,33 +4,33 @@ Programs:
 ```
 alacritty
 hyprland
-nvim
+neovim
 git
-ly
 rofi
 tmux
 lf
-vim-plug
 fzf
 waybar-hyprland-git
 trash-cli
 hyprpaper
-mupdf
 hyprsome
 openssh
 polkit-kde-agent
 ripgrep
+packer.nvim
+zathura
+greetd-tuigreet
 ````
 
 Optional program:
 ```
+brightnessctl
 firefox
-chromium
-udisks2
 ncdu
+udisks2
 ```
 
 Font:
 ```
-Hack Nerd Font
+ttf-hack-nerd
 ```
