@@ -1,6 +1,13 @@
--- Set colorscheme
-vim.cmd.colorscheme('onedark')
+ vim.cmd([[
+	 " Important!!
+	 if has('termguicolors')
+	   set termguicolors
+	 endif
 
--- Set transparent background
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+	let g:sonokai_style = 'default'
+	let g:sonokai_better_performance = 1
+	let g:sonokai_transparent_background = 1
+
+	colorscheme sonokai
+]])

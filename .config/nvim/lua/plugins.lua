@@ -10,9 +10,6 @@ return require('packer').startup(function(use)
 	use 'L3MON4D3/LuaSnip'
 	use 'saadparwaiz1/cmp_luasnip'
 
-	-- Theme
-	use 'joshdick/onedark.vim'
-
 	-- Misc
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
@@ -27,4 +24,12 @@ return require('packer').startup(function(use)
 	use 'tpope/vim-fugitive'
 	use 'tpope/vim-commentary'
 	use 'windwp/nvim-autopairs'
+
+	-- Theme
+	use 'sainnhe/sonokai'
+
+	use {
+		'nvim-lualine/lualine.nvim',
+		requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+	}
 end)
