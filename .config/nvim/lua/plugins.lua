@@ -10,6 +10,12 @@ return require('packer').startup(function(use)
 	use 'L3MON4D3/LuaSnip'
 	use 'saadparwaiz1/cmp_luasnip'
 
+	-- Debugging
+	use { 
+		"rcarriga/nvim-dap-ui",
+		requires = {"mfussenegger/nvim-dap"}
+	}
+
 	-- Misc
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
