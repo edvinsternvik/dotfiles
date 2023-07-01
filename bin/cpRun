@@ -1,4 +1,12 @@
 #!/bin/bash
 
-FILE=$1
-g++ $FILE -std=c++20 && ./a.out && rm a.out
+FILE="${1%.*}.cpp"
+OUTFILE=$2
+COMPILE_FLAGS=(-std=c++20 -Wshadow -Wall -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g)
+
+if [ -z "$OUTFILE" ]
+then
+	OUTFILE="a.out"
+fi
+
+g++ $FILE ${COMPILE_FLAGS[*]} -o $OUTFILE && eval " ./$OUTFILE" && rm "./$OUTFILE"
