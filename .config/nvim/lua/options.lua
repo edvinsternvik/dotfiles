@@ -14,7 +14,9 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 -- Don't continue comments on new line
-vim.opt.formatoptions:remove({'c', 'r', 'o'})
+vim.api.nvim_create_autocmd("BufEnter", {
+	callback = function() vim.opt.formatoptions:remove({'c', 'r', 'o'}) end
+})
 
 -- Misc
 vim.opt.scrolloff = 8
