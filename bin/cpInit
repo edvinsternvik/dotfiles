@@ -1,8 +1,144 @@
 #!/bin/bash
 
-TEMPLATE_PATH=/home/edvin/Programming/codeforces/template.cpp
+# Functions
+function print_help {
+	SCRIPT_NAME=$(basename $BASH_SOURCE)
+	echo -e "USAGE"
+	echo -e "\t$SCRIPT_NAME [OPTION]... <file[.cpp]>"
+	echo -e "\t\tInitialize a new c++ file from a template\n"
+	echo -e "\t$SCRIPT_NAME [-h]\n\t\tDisplay this text\n"
+
+	echo -e "ARGUMENTS"
+	echo -e "\tfile"
+	echo -e "\t\tThe file to create, this script does nothing if the file already exist\n"
+
+	echo -e "OPTIONS"
+	echo -e "\t-h\n\t\tDisplay this text\n"
+	echo -e "\t-s\n\t\tThere should only be one single testcase\n"
+	echo -e "\t-t={s|solution|v|validator|g|generator}\n\t\tThe type of template to generate. Default is 'solution'.\n"
+
+	exit 1
+
+}
+
+# Template strings
+SOLVE_FN_NAME="solveTestcase"
+GEN_FN_NAME="genTestcase"
+
+TEMPLATE_HEADER=$(cat <<-END
+#include <bits/stdc++.h>
+using namespace std;
+
+using ull = unsigned long long;
+using ll = long long;
+using llp = pair<ll,ll>;
+using ullp = pair<ull,ull>;
+
+END
+)
+
+TEMPLATE_SOLVE_FN=$(cat <<-END
+void $SOLVE_FN_NAME() {
+}
+
+END
+)
+
+TEMPLATE_GEN_FN=$(cat <<-END
+void $GEN_FN_NAME(mt19937& rng) {
+    uniform_int_distribution<ll> distr(0, 10);
+}
+
+END
+)
+
+TEMPLATE_MAIN_HEADER=$(cat <<-END
+int main(int argc, char* argv[]) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+END
+)
+
+TEMPLATE_TESTCASES=$(cat <<-END
+    int t;
+    cin >> t;
+
+    for(int tc = 0; tc < t; ++tc) {
+        $SOLVE_FN_NAME();
+    }
+
+END
+)
+
+TEMPLATE_TESTCASE=$(cat <<-END
+    $SOLVE_FN_NAME();
+END
+)
+
+TEMPLATE_RNG=$(cat <<-END
+    ll seed = atoi(argv[1]);
+    mt19937 rng(seed);
+
+
+END
+)
+
+TEMPLATE_CALL_GEN=$(cat <<-END
+    $GEN_FN_NAME(rng);
+
+END
+)
+
+# Variables
+TYPE="solution"
+SINGLE_TESTCASE_FLAG=false
+
+# Parse arguments
+while getopts hst: opt
+do
+	case "${opt}" in
+		h) print_help;;
+		s) SINGLE_TESTCASE_FLAG=true;;
+		t) TYPE=${OPTARG};;
+		*) print_help;;
+	esac
+done
+shift $((OPTIND - 1))
+
+
 FILE="${1%.*}.cpp"
 
-if  [[ ! -f "$FILE" ]]; then
-    cp "$TEMPLATE_PATH" $FILE && nvim $FILE
+# Validate arguments
+if [[ $# != 1 ]]; then
+	echo -e "ERROR: No file specified\n"
+	print_help
+fi
+
+
+# Create file from template
+TEMPLATE=""
+TEMPLATE_CALL_TESTCASE="$TEMPLATE_TESTCASES"
+if [[ $SINGLE_TESTCASE_FLAG == true ]]; then
+	TEMPLATE_CALL_TESTCASE="$TEMPLATE_TESTCASE"
+fi
+
+if [[ $TYPE == "solution" || $TYPE == "s" ]]; then
+	TEMPLATE=$(echo -e "$TEMPLATE_HEADER\n\n$TEMPLATE_SOLVE_FN\n\n$TEMPLATE_MAIN_HEADER\n\n$TEMPLATE_CALL_TESTCASE\n}" )
+elif [[ $TYPE == "validator" || $TYPE == "v" ]]; then
+	TEMPLATE=$(echo -e "$TEMPLATE_HEADER\n\n$TEMPLATE_SOLVE_FN\n\n$TEMPLATE_MAIN_HEADER\n\n$TEMPLATE_CALL_TESTCASE\n}" )
+elif [[ $TYPE == "generator" || $TYPE == "g" ]]; then
+	TEMPLATE=$(echo -e "$TEMPLATE_HEADER\n\n$TEMPLATE_GEN_FN\n\n$TEMPLATE_MAIN_HEADER\n\n$TEMPLATE_RNG\n\n$TEMPLATE_CALL_GEN\n}" )
+else
+	echo -e "ERROR: Invalid type: $TYPE\n"
+	print_help
+fi
+
+
+if [[ -f $FILE ]]; then
+	echo -e "ERROR: $FILE already exists\n"
+	exit
+else
+	echo "$TEMPLATE"
+    # cp "$TEMPLATE_PATH" $FILE && nvim $FILE
 fi

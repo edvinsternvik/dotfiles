@@ -1,12 +1,126 @@
 #!/bin/bash
 
-FILE="${1%.*}.cpp"
-OUTFILE=$2
-COMPILE_FLAGS=(-std=c++20 -Wshadow -Wall -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g)
+# Functions
+function print_help {
+	SCRIPT_NAME=$(basename $BASH_SOURCE)
+	echo -e "USAGE"
+	echo -e "\t$SCRIPT_NAME [OPTION]... <program[.cpp]>"
+	echo -e "\t\tCompile/Run the specified C++ program\n"
+	echo -e "\t$SCRIPT_NAME [OPTION]... -t <program[.cpp]> [validator[.cpp]] [generator[.cpp]]"
+	echo -e "\t\tTest the specified C++ program using a validator and generator.\n"
+	echo -e "\t$SCRIPT_NAME [-h]\n\t\tDisplay this text\n"
 
-if [ -z "$OUTFILE" ]
-then
-	OUTFILE="a.out"
+	echo -e "ARGUMENTS"
+	echo -e "\tprogram"
+	echo -e "\t\tThe c++ program to run/test. It should read the testcase generated from the"
+	echo -e "\t\tgenerator and print out the result.\n"
+	echo -e "\tvalidator"
+	echo -e "\t\tThe c++ program that validates the program. Should work the same as the program,"
+	echo -e "\t\texcept it should also read in the output from the program and exit with error if"
+	echo -e "\t\tthe program produced an incorrect result.\n\t\tDefaults to (program)val.cpp\n"
+	echo -e "\tgenerator"
+	echo -e "\t\tShould take a seed as argument, and print out a valid testcase for the program."
+	echo -e "\t\tDefaults to (program)gen.cpp\n"
+
+	echo -e "OPTIONS"
+	echo -e "\t-h\n\t\tDisplay this text\n"
+	echo -e "\t-o, -O\n\t\tCompile with optimizations enabled\n"
+	echo -e "\t-t\n\t\tTest program instead of just running it\n"
+
+	exit 1
+}
+
+function cleanup {
+	[ -e "$PROGRAM" ] && rm $PROGRAM
+	[ -e "$GENERATOR" ] && rm $GENERATOR
+	[ -e "$VALIDATOR" ] && rm $VALIDATOR
+	exit
+}
+
+# Variables
+PROGRAM="a.out"
+TEST_FLAG=false
+
+COMPILE_FLAGS=(-std=c++20 -Wshadow -Wall -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g)
+OPTIMIZED_COMPILE_FLAGS=(-std=c++20 -O2 -Wno-unused-result -Wshadow -Wall)
+
+# Parse arguments
+while getopts hoOt opt
+do
+	case "${opt}" in
+		h) print_help;;
+		o) COMPILE_FLAGS=("${OPTIMIZED_COMPILE_FLAGS[@]}");;
+		O) COMPILE_FLAGS=("${OPTIMIZED_COMPILE_FLAGS[@]}");;
+		t) TEST_FLAG=true;;
+		*) print_help;;
+	esac
+done
+shift $((OPTIND - 1))
+
+PROGRAM_FILE="${1%.*}.cpp"
+
+# Cleanup on user interrupt
+trap cleanup SIGINT
+
+# Perform action
+if [[ $TEST_FLAG == false ]]; then
+	# Validate input
+	if [[ $# == 0 || $# > 1 ]]; then
+		print_help
+	fi
+
+	# Run program
+	echo "RUNNING $PROGRAM_FILE"
+	g++ $PROGRAM_FILE ${COMPILE_FLAGS[*]} -o $PROGRAM && eval " ./$PROGRAM" && rm "./$PROGRAM"
+else
+	# Validate input
+	if [[ $# == 0 || $# > 3 ]]; then
+		print_help
+	fi
+
+	BASE_FILENAME="${PROGRAM_FILE%.*}"
+	VALIDATOR_FILE="${BASE_FILENAME}val.cpp"
+	GENERATOR_FILE="${BASE_FILENAME}gen.cpp"
+	VALIDATOR="val.out"
+	GENERATOR="gen.out"
+
+	if [[ $# > 1 ]]; then
+		VALIDATOR_FILE="${2%.*}.cpp"
+	fi
+	if [[ $# > 2 ]]; then
+		GENERATOR_FILE="${3%.*}.cpp"
+	fi
+
+	echo "Testing $PROGRAM_FILE (^C to exit)"
+
+	# Compile programs
+	g++ $PROGRAM_FILE   ${COMPILE_FLAGS[*]} -o $PROGRAM
+	g++ $VALIDATOR_FILE ${COMPILE_FLAGS[*]} -o $VALIDATOR
+	g++ $GENERATOR_FILE ${COMPILE_FLAGS[*]} -o $GENERATOR
+
+	# Test program
+	for((i = 1; ; ++i)) do
+		echo -n "Test $i: "
+
+		INPUT=$(eval " ./$GENERATOR" $i)
+		PROGRAM_OUTPUT=$(printf '%s\n' "$INPUT" | eval "./$PROGRAM")
+		VALIDATOR_OUTPUT=$(printf '%s\n%s\n' "$INPUT" "$PROGRAM_OUTPUT" | eval "./$VALIDATOR")
+		VALIDATOR_RESULT="$?"
+
+		if [[ $VALIDATOR_RESULT == 0 ]]; then
+			echo "correct"
+		else
+			echo "incorrect"
+			echo "-------------------INPUT----------------------"
+			echo $INPUT
+			echo "-------------------OUTPUT---------------------"
+			echo $PROGRAM_OUTPUT
+			echo "------------------CORRECT---------------------"
+			echo $VALIDATOR_OUTPUT
+			break
+		fi
+	done
 fi
 
-g++ $FILE ${COMPILE_FLAGS[*]} -o $OUTFILE && eval " ./$OUTFILE" && rm "./$OUTFILE"
+# Cleanup on exit
+cleanup
