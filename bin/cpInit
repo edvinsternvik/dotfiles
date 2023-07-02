@@ -5,16 +5,16 @@ function print_help {
 	SCRIPT_NAME=$(basename $BASH_SOURCE)
 	echo -e "USAGE"
 	echo -e "\t$SCRIPT_NAME [OPTION]... <file[.cpp]>"
-	echo -e "\t\tInitialize a new c++ file from a template\n"
-	echo -e "\t$SCRIPT_NAME [-h]\n\t\tDisplay this text\n"
+	echo -e "\t\tInitialize a new c++ file from a template and opens it it in editor.\n"
+	echo -e "\t$SCRIPT_NAME [-h]\n\t\tDisplay this text.\n"
 
 	echo -e "ARGUMENTS"
 	echo -e "\tfile"
-	echo -e "\t\tThe file to create, this script does nothing if the file already exist\n"
+	echo -e "\t\tThe file to create and open.\n"
 
 	echo -e "OPTIONS"
-	echo -e "\t-h\n\t\tDisplay this text\n"
-	echo -e "\t-s\n\t\tThere should only be one single testcase\n"
+	echo -e "\t-h\n\t\tDisplay this text.\n"
+	echo -e "\t-s\n\t\tThere should only be one single testcase.\n"
 	echo -e "\t-t={s|solution|v|validator|g|generator}\n\t\tThe type of template to generate. Default is 'solution'.\n"
 
 	exit 1
@@ -115,6 +115,7 @@ if [[ $# != 1 ]]; then
 	print_help
 fi
 
+FILE_EDITOR="${EDITOR:-vim}"
 
 # Create file from template
 TEMPLATE=""
@@ -136,9 +137,7 @@ fi
 
 
 if [[ -f $FILE ]]; then
-	echo -e "ERROR: $FILE already exists\n"
-	exit
+	eval " $FILE_EDITOR" $FILE
 else
-	echo "$TEMPLATE"
-    # cp "$TEMPLATE_PATH" $FILE && nvim $FILE
+	echo "$TEMPLATE" > $FILE && eval " $FILE_EDITOR" $FILE
 fi
