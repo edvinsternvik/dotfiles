@@ -2,22 +2,22 @@
 
 # Functions
 function print_help {
-	SCRIPT_NAME=$(basename $BASH_SOURCE)
-	echo -e "USAGE"
-	echo -e "\t$SCRIPT_NAME [OPTION]... <file[.cpp]>"
-	echo -e "\t\tInitialize a new c++ file from a template and opens it it in editor.\n"
-	echo -e "\t$SCRIPT_NAME [-h]\n\t\tDisplay this text.\n"
+    SCRIPT_NAME=$(basename $BASH_SOURCE)
+    echo -e "USAGE"
+    echo -e "\t$SCRIPT_NAME [OPTION]... <file[.cpp]>"
+    echo -e "\t\tInitialize a new c++ file from a template and opens it it in editor.\n"
+    echo -e "\t$SCRIPT_NAME [-h]\n\t\tDisplay this text.\n"
 
-	echo -e "ARGUMENTS"
-	echo -e "\tfile"
-	echo -e "\t\tThe file to create and open.\n"
+    echo -e "ARGUMENTS"
+    echo -e "\tfile"
+    echo -e "\t\tThe file to create and open.\n"
 
-	echo -e "OPTIONS"
-	echo -e "\t-h\n\t\tDisplay this text.\n"
-	echo -e "\t-s\n\t\tThere should only be one single testcase.\n"
-	echo -e "\t-t={s|solution|v|validator|g|generator}\n\t\tThe type of template to generate. Default is 'solution'.\n"
+    echo -e "OPTIONS"
+    echo -e "\t-h\n\t\tDisplay this text.\n"
+    echo -e "\t-s\n\t\tThere should only be one single testcase.\n"
+    echo -e "\t-t={s|solution|v|validator|g|generator}\n\t\tThe type of template to generate. Default is 'solution'.\n"
 
-	exit 1
+    exit 1
 
 }
 
@@ -84,7 +84,13 @@ TEMPLATE_RNG=$(cat <<-END
 END
 )
 
-TEMPLATE_CALL_GEN=$(cat <<-END
+TEMPLATE_GENS=$(cat <<-END
+    cout << "1\\n";
+    $GEN_FN_NAME(rng);
+
+END
+)
+TEMPLATE_GEN=$(cat <<-END
     $GEN_FN_NAME(rng);
 
 END
@@ -97,12 +103,12 @@ SINGLE_TESTCASE_FLAG=false
 # Parse arguments
 while getopts hst: opt
 do
-	case "${opt}" in
-		h) print_help;;
-		s) SINGLE_TESTCASE_FLAG=true;;
-		t) TYPE=${OPTARG};;
-		*) print_help;;
-	esac
+    case "${opt}" in
+        h) print_help;;
+        s) SINGLE_TESTCASE_FLAG=true;;
+        t) TYPE=${OPTARG};;
+        *) print_help;;
+    esac
 done
 shift $((OPTIND - 1))
 
@@ -111,8 +117,8 @@ FILE="${1%.*}.cpp"
 
 # Validate arguments
 if [[ $# != 1 ]]; then
-	echo -e "ERROR: No file specified\n"
-	print_help
+    echo -e "ERROR: No file specified\n"
+    print_help
 fi
 
 FILE_EDITOR="${EDITOR:-vim}"
@@ -121,23 +127,28 @@ FILE_EDITOR="${EDITOR:-vim}"
 TEMPLATE=""
 TEMPLATE_CALL_TESTCASE="$TEMPLATE_TESTCASES"
 if [[ $SINGLE_TESTCASE_FLAG == true ]]; then
-	TEMPLATE_CALL_TESTCASE="$TEMPLATE_TESTCASE"
+    TEMPLATE_CALL_TESTCASE="$TEMPLATE_TESTCASE"
+fi
+
+TEMPLATE_CALL_GEN="$TEMPLATE_GENS"
+if [[ $SINGLE_TESTCASE_FLAG == true ]]; then
+    TEMPLATE_CALL_GEN="$TEMPLATE_GEN"
 fi
 
 if [[ $TYPE == "solution" || $TYPE == "s" ]]; then
-	TEMPLATE=$(echo -e "$TEMPLATE_HEADER\n\n$TEMPLATE_SOLVE_FN\n\n$TEMPLATE_MAIN_HEADER\n\n$TEMPLATE_CALL_TESTCASE\n}" )
+    TEMPLATE=$(echo -e "$TEMPLATE_HEADER\n\n$TEMPLATE_SOLVE_FN\n\n$TEMPLATE_MAIN_HEADER\n\n$TEMPLATE_CALL_TESTCASE\n}" )
 elif [[ $TYPE == "validator" || $TYPE == "v" ]]; then
-	TEMPLATE=$(echo -e "$TEMPLATE_HEADER\n\n$TEMPLATE_SOLVE_FN\n\n$TEMPLATE_MAIN_HEADER\n\n$TEMPLATE_CALL_TESTCASE\n}" )
+    TEMPLATE=$(echo -e "$TEMPLATE_HEADER\n\n$TEMPLATE_SOLVE_FN\n\n$TEMPLATE_MAIN_HEADER\n\n$TEMPLATE_CALL_TESTCASE\n}" )
 elif [[ $TYPE == "generator" || $TYPE == "g" ]]; then
-	TEMPLATE=$(echo -e "$TEMPLATE_HEADER\n\n$TEMPLATE_GEN_FN\n\n$TEMPLATE_MAIN_HEADER\n\n$TEMPLATE_RNG\n\n$TEMPLATE_CALL_GEN\n}" )
+    TEMPLATE=$(echo -e "$TEMPLATE_HEADER\n\n$TEMPLATE_GEN_FN\n\n$TEMPLATE_MAIN_HEADER\n\n$TEMPLATE_RNG\n\n$TEMPLATE_CALL_GEN\n}" )
 else
-	echo -e "ERROR: Invalid type: $TYPE\n"
-	print_help
+    echo -e "ERROR: Invalid type: $TYPE\n"
+    print_help
 fi
 
 
 if [[ -f $FILE ]]; then
-	eval " $FILE_EDITOR" $FILE
+    eval " $FILE_EDITOR" $FILE
 else
-	echo "$TEMPLATE" > $FILE && eval " $FILE_EDITOR" $FILE
+    echo "$TEMPLATE" > $FILE && eval " $FILE_EDITOR" $FILE
 fi
