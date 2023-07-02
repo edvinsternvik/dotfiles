@@ -70,7 +70,6 @@ if [[ $TEST_FLAG == false ]]; then
 	fi
 
 	# Run program
-	echo "RUNNING $PROGRAM_FILE"
 	g++ $PROGRAM_FILE ${COMPILE_FLAGS[*]} -o $PROGRAM && eval " ./$PROGRAM" && rm "./$PROGRAM"
 else
 	# Validate input
@@ -112,11 +111,11 @@ else
 		else
 			echo "incorrect"
 			echo "-------------------INPUT----------------------"
-			echo $INPUT
+			echo "$INPUT"
 			echo "-------------------OUTPUT---------------------"
-			echo $PROGRAM_OUTPUT
+			echo "$PROGRAM_OUTPUT"
 			echo "------------------CORRECT---------------------"
-			echo $VALIDATOR_OUTPUT
+			echo "$VALIDATOR_OUTPUT"
 			break
 		fi
 	done
