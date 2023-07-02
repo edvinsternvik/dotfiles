@@ -15,7 +15,7 @@ vim.opt.incsearch = true
 
 -- Don't continue comments on new line
 vim.api.nvim_create_autocmd("BufEnter", {
-	callback = function() vim.opt.formatoptions:remove({'c', 'r', 'o'}) end
+    callback = function() vim.opt.formatoptions:remove({'c', 'r', 'o'}) end
 })
 
 -- Misc

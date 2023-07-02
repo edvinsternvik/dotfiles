@@ -4,13 +4,13 @@ dapui.setup {}
 
 -- Open dapui when starting dap, and close dapui when closing dap
 dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
+    dapui.open()
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
-  dapui.close()
+    dapui.close()
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
-  dapui.close()
+    dapui.close()
 end
 
 -- Set dap keymaps
@@ -32,24 +32,24 @@ vim.keymap.set('n', '<leader>do', function() require('dap').step_out() end)
 
 -- LLDB config
 dap.adapters.lldb = {
-	type = 'executable',
-	command = '/usr/bin/lldb-vscode',
-	name = 'lldb'
+    type = 'executable',
+    command = '/usr/bin/lldb-vscode',
+    name = 'lldb'
 }
 
 local lldbconfig = {
-  {
-    name = 'Launch LLDB',
-    type = 'lldb',
-    request = 'launch',
-    program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-    end,
-    cwd = '${workspaceFolder}',
-    stopOnEntry = true,
-    args = {},
-	runInTerminal = false,
-  },
+    {
+        name = 'Launch LLDB',
+        type = 'lldb',
+        request = 'launch',
+        program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = true,
+        args = {},
+        runInTerminal = false,
+    },
 }
 
 dap.configurations.cpp = lldbconfig
