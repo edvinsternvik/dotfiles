@@ -18,6 +18,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
     callback = function() vim.opt.formatoptions:remove({'c', 'r', 'o'}) end
 })
 
+-- Splits
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 -- Misc
 vim.opt.scrolloff = 8
 vim.opt.termguicolors = true
