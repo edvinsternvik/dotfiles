@@ -25,4 +25,4 @@ vim.opt.splitbelow = true
 -- Misc
 vim.opt.scrolloff = 8
 vim.opt.termguicolors = true
-vim.opt.updatetime = 50
+vim.opt.updatetime = 750
