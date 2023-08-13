@@ -1,0 +1,46 @@
+# PACMAN
+alacritty
+hyprland
+neovim
+git
+tmux
+lf
+fzf
+waybar
+trash-cli
+hyprpaper
+openssh
+polkit-kde-agent
+ripgrep
+zathura
+zathura-pdf-mupdf
+greetd-tuigreet
+ttf-hack-nerd
+firefox
+ncdu
+udisks2
+
+# AUR
+rofi-lbonn-wayland-git
+
+# COMMANDS
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+# DOTFILES
+.config/alacritty
+.config/firefox
+.config/fish
+.config/hypr
+.config/lf
+.config/nvim
+.config/rofi
+.config/tmux
+.config/waybar
+.config/zathura
+.config/mimeapps.list
+
+.local/
+
+bin/cpInit
+bin/cpRun
+bin/hyprland-workspaces-src
