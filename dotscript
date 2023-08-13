@@ -91,7 +91,7 @@ function write_dotfiles {
         echo -e "  Writing: $file"
 
         mkdir -p $(dirname "$HOME/$file")
-        cp -r "$file" "$HOME/$file"
+        cp -r "$file" $(dirname "$HOME/$file")
     done
 }
 
@@ -102,7 +102,7 @@ function read_dotfiles {
         echo -e "  Reading: $file"
 
         mkdir -p $(dirname "$file")
-        cp "$HOME/$file" "$file"
+        cp "$HOME/$file" $(dirname "$file")
     done
 }
 
@@ -115,7 +115,7 @@ function install_programs {
 function install_aur {
     echo "Installing $CONFIGURATION AUR programs"
 
-    eval "sudo yay -S ${AUR_PROGRAMS[@]}"
+    eval "yay -S ${AUR_PROGRAMS[@]}"
 }
 
 function run_commands {
@@ -132,7 +132,9 @@ function clean_dotfiles {
     echo "Cleaning $CONFIGURATION configuration"
 
     for file in "${DOTFILES[@]}"; do
-        rm "$file"
+        echo -e "  Cleaning $file"
+
+        rm -r "$HOME/$file"
     done
 }
 

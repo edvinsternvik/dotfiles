@@ -24,7 +24,7 @@ udisks2
 rofi-lbonn-wayland-git
 
 # COMMANDS
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # DOTFILES
 .config/alacritty
@@ -39,7 +39,7 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nv
 .config/zathura
 .config/mimeapps.list
 
-.local/
+.local/share/applications
 
 bin/cpInit
 bin/cpRun
