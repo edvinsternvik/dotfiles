@@ -23,6 +23,7 @@ function print_help {
     echo -e "\t\tDefaults to (program)gen.cpp\n"
 
     echo -e "OPTIONS"
+    echo -e "\t-c\n\t\tCompile the program, but don't run it\n"
     echo -e "\t-h\n\t\tDisplay this text\n"
     echo -e "\t-o, -O\n\t\tCompile with optimizations enabled\n"
     echo -e "\t-t\n\t\tTest program instead of just running it\n"
@@ -40,14 +41,16 @@ function cleanup {
 # Variables
 PROGRAM="a.out"
 TEST_FLAG=false
+COMPILE_ONLY_FLAG=false
 
 COMPILE_FLAGS=(-std=c++20 -Wshadow -Wall -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g)
 OPTIMIZED_COMPILE_FLAGS=(-std=c++20 -O2 -Wno-unused-result -Wshadow -Wall)
 
 # Parse arguments
-while getopts hoOt opt
+while getopts choOt opt
 do
     case "${opt}" in
+        c) COMPILE_ONLY_FLAG=true;;
         h) print_help;;
         o) COMPILE_FLAGS=("${OPTIMIZED_COMPILE_FLAGS[@]}");;
         O) COMPILE_FLAGS=("${OPTIMIZED_COMPILE_FLAGS[@]}");;
@@ -63,7 +66,15 @@ PROGRAM_FILE="${1%.*}.cpp"
 trap cleanup SIGINT
 
 # Perform action
-if [[ $TEST_FLAG == false ]]; then
+if [[ $COMPILE_ONLY_FLAG == true ]]; then
+    # Validate input
+    if [[ $# == 0 ]]; then
+        print_help
+    fi
+    # Compile program
+    g++ $PROGRAM_FILE ${COMPILE_FLAGS[*]} -o $PROGRAM
+    exit
+elif [[ $TEST_FLAG == false ]]; then
     # Validate input
     if [[ $# == 0 || $# > 1 ]]; then
         print_help

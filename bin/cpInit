@@ -85,7 +85,7 @@ END
 )
 
 TEMPLATE_GENS=$(cat <<-END
-    cout << "1\\n";
+    cout << "1\n";
     $GEN_FN_NAME(rng);
 
 END
@@ -140,7 +140,7 @@ if [[ $TYPE == "solution" || $TYPE == "s" ]]; then
 elif [[ $TYPE == "validator" || $TYPE == "v" ]]; then
     TEMPLATE=$(echo -e "$TEMPLATE_HEADER\n\n$TEMPLATE_SOLVE_FN\n\n$TEMPLATE_MAIN_HEADER\n\n$TEMPLATE_CALL_TESTCASE\n}" )
 elif [[ $TYPE == "generator" || $TYPE == "g" ]]; then
-    TEMPLATE=$(echo -e "$TEMPLATE_HEADER\n\n$TEMPLATE_GEN_FN\n\n$TEMPLATE_MAIN_HEADER\n\n$TEMPLATE_RNG\n\n$TEMPLATE_CALL_GEN\n}" )
+    TEMPLATE=$(printf "%s\n\n%s\n\n%s\n\n%s\n\n%s\n}" "$TEMPLATE_HEADER" "$TEMPLATE_GEN_FN" "$TEMPLATE_MAIN_HEADER" "$TEMPLATE_RNG" "$TEMPLATE_CALL_GEN" )
 else
     echo -e "ERROR: Invalid type: $TYPE\n"
     print_help
