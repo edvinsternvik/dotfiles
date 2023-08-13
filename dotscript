@@ -102,7 +102,7 @@ function read_dotfiles {
         echo -e "  Reading: $file"
 
         mkdir -p $(dirname "$file")
-        cp "$HOME/$file" $(dirname "$file")
+        cp -r "$HOME/$file" $(dirname "$file")
     done
 }
 
