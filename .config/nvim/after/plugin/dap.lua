@@ -46,12 +46,12 @@ local lldbconfig = {
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
         cwd = '${workspaceFolder}',
-        stopOnEntry = true,
+        stopOnEntry = false,
         args = {},
-        runInTerminal = false,
     },
 }
 
 dap.configurations.cpp = lldbconfig
+
 dap.configurations.c = lldbconfig
 dap.configurations.rust = lldbconfig

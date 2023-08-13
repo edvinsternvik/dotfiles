@@ -37,6 +37,7 @@ lspconfig.ccls.setup { capabilities = capabilities }
 lspconfig.rust_analyzer.setup { capabilities = capabilities }
 lspconfig.hls.setup { capabilities = capabilities }
 lspconfig.pyright.setup { capabilities = capabilities }
+lspconfig.tsserver.setup { capabilities = capabilities }
 
 -- Keybinds
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
