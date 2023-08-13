@@ -1,0 +1,36 @@
+#!/bin/bash
+
+MONITOR_INFO="abcd"
+WORKSPACE_INFO="eft"
+
+update_monitor_info() {
+    MONITOR_INFO=$(hyprctl -j monitors)
+}
+
+update_workspace_info() {
+    WORKSPACE_INFO=$(hyprctl -j workspaces)
+}
+
+print_info() {
+    echo ""
+    printf "{\"monitors\": %s,\"workspaces\": %s}" "$MONITOR_INFO" "$WORKSPACE_INFO" | tr -d '\n'
+}
+
+handle() {
+    case $1 in
+        workspace*)  update_monitor_info ;;
+        activewindow*) update_workspace_info ;;
+        createworkspace*) update_workspace_info ;;
+        destroyworkspace*) update_workspace_info ;;
+        moveworkspace*) update_monitor_info ;;
+        *) return ;;
+    esac
+
+    print_info
+}
+
+update_monitor_info
+update_workspace_info
+print_info
+socat -U - UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock | while read -r line; do handle "$line"; done
+exit
