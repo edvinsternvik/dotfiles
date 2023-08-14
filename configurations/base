@@ -1,14 +1,41 @@
 # PACMAN
-hyprland
-waybar
-hyprpaper
+alacritty
+neovim
+git
+tmux
+lf
+fzf
+trash-cli
+openssh
+polkit-kde-agent
+ripgrep
+zathura
+zathura-pdf-mupdf
+greetd-tuigreet
+ttf-hack-nerd
+firefox
+ncdu
+udisks2
+fish
 
-# AUR
-rofi-lbonn-wayland-git
+# COMMANDS
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+sudo systemctl enable greetd
+sudo sed -i 's/^command.*$/command = "tuigreet --cmd sh"/g' /etc/greetd/config.toml
+chsh -s /bin/fish
 
 # DOTFILES
-.config/hypr
-.config/waybar
+.config/alacritty
+.config/firefox
+.config/fish
+.config/lf
+.config/nvim
+.config/rofi
+.config/tmux
+.config/zathura
+.config/mimeapps.list
 
-bin/hyprland-workspaces-src
+.local/share/applications
 
+bin/cpInit
+bin/cpRun
