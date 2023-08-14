@@ -1,0 +1,8 @@
+# PACMAN
+ccls
+rustup
+ghcup
+
+# COMMANDS
+curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+rustup update

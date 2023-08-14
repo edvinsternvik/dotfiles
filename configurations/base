@@ -1,0 +1,14 @@
+# PACMAN
+hyprland
+waybar
+hyprpaper
+
+# AUR
+rofi-lbonn-wayland-git
+
+# DOTFILES
+.config/hypr
+.config/waybar
+
+bin/hyprland-workspaces-src
+
