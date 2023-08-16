@@ -2,6 +2,9 @@
 hyprland
 waybar
 hyprpaper
+xdg-desktop-portal-hyprland
+grim
+slurp
 
 # AUR
 rofi-lbonn-wayland-git
