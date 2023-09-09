@@ -70,6 +70,10 @@ window#waybar.hidden {
     border: 0px solid #181825;
 }
 
+#tray {
+    margin-right: 8px;
+}
+
 #workspaces {
     border-radius: 10px;
     margin-left: 8px;

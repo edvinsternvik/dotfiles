@@ -1,18 +1,25 @@
 {
     "layer": "top",
-    "height": 20, // Waybar height (to be removed for auto height)
-    "spacing": 4, // Gaps between modules (4px)
+    "height": 20,
+    "spacing": 4,
 
     // Choose the order of the modules
-    "modules-left": ["wlr/workspaces", "hyprland/submap", "custom/media"],
+    "modules-left": ["hyprland/workspaces"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "battery", "clock", "tray"],
-
+    "modules-right": ["pulseaudio", "network", "cpu", "memory", "battery", "battery#bat2", "clock", "tray"],
     // Modules configuration
-    "wlr/workspaces": {
+    "hyprland/workspaces": {
         "format": "{icon}",
-        "on-click": "activate",
         "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
             "11": "1",
             "12": "2",
             "13": "3",
@@ -21,22 +28,20 @@
             "16": "6",
             "17": "7",
             "18": "8",
-            "19": "9"
-        },
-        "sort-by-number": true
+            "19": "9",
+        }
     },
     "tray": {
-        "icon-size": 21,
         "spacing": 10
     },
     "clock": {
         "format": "{:%H:%M}  ",
-        "format-alt": "{:%b %d, %Y (%R) }  ",
+        "format-alt": "{:%A, %B %d, %Y (%R)}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
                     "mode"          : "month",
                     "weeks-pos"     : "right",
-                    "on-scroll"     : -1,
+                    "on-scroll"     : 1,
                     "format": {
                               "months":     "<span color='#ffead3'><b>{}</b></span>",
                               "days":       "<span color='#ecc6d9'><b>{}</b></span>",
@@ -44,10 +49,14 @@
                               "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
                               "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
                               }
+                    },
+        "actions":  {
+                    "on-click-right": "mode",
+                    "on-click-forward": "tz_up",
+                    "on-click-backward": "tz_down",
+                    "on-scroll-up": "shift_up",
+                    "on-scroll-down": "shift_down"
                     }
-    },
-    "hyprland/window": {
-        "separate-outputs": true
     },
     "cpu": {
         "format": "{usage}% ",
@@ -56,31 +65,40 @@
     "memory": {
         "format": "{}% "
     },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
     "battery": {
         "states": {
+            // "good": 95,
             "warning": 30,
             "critical": 15
         },
-        "format": "{capacity}% {icon} ",
-        "format-charging": "{capacity}%  ",
-        "format-plugged": "{capacity}%  ",
-        "format-alt": "{time} {icon} ",
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
         "format-icons": ["", "", "", "", ""]
+    },
+    "battery#bat2": {
+        "bat": "BAT2"
     },
     "network": {
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "󰈀",
-        "tooltip-format": "{ifname} via {gwaddr} 󰈀",
-        "format-linked": "(No IP) 󰈀",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "format-linked": "(No IP)",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
         "scroll-step": 5,
-        "format": "{volume}% {icon}   | {format_source}",
-        "format-bluetooth": "{volume}% {icon}󰂯   | {format_source}",
-        "format-bluetooth-muted": "󰝟 {icon}󰂯   | {format_source}",
-        "format-muted": "󰝟   | {format_source}",
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
         "format-source": "{volume}% ",
         "format-source-muted": "",
         "format-icons": {
@@ -107,4 +125,3 @@
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
     }
 }
-
