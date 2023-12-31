@@ -1,0 +1,76 @@
+[colors.bright]
+black = "#766e6b"
+blue = "#407ee7"
+cyan = "#00ad9c"
+green = "#5ab738"
+magenta = "#6666ea"
+red = "#f22c40"
+white = "#f1efee"
+yellow = "#d5911a"
+
+[colors.cursor]
+cursor = "#a8a19f"
+text = "#1b1918"
+
+[colors.normal]
+black = "#1b1918"
+blue = "#407ee7"
+cyan = "#00ad9c"
+green = "#5ab738"
+magenta = "#6666ea"
+red = "#f22c40"
+white = "#a8a19f"
+yellow = "#d5911a"
+
+[colors.primary]
+background = "#191719"
+foreground = "#a8a19f"
+
+[font]
+size = 10.0
+
+[font.bold]
+family = "Hack Nerd Font Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "Hack Nerd Font Mono"
+style = "Bold Italic"
+
+[font.italic]
+family = "Hack Nerd Font Mono"
+style = "Italic"
+
+[font.normal]
+family = "Hack Nerd Font Mono"
+style = "Regular"
+
+[[keyboard.bindings]]
+action = "ScrollPageUp"
+key = "K"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ScrollPageDown"
+key = "J"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ScrollToBottom"
+key = "H"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ScrollToTop"
+key = "L"
+mods = "Control"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[shell]
+program = "/usr/bin/tmux"
+
+[window]
+opacity = 0.9
