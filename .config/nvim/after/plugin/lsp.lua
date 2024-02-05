@@ -1,5 +1,5 @@
 local lspconfig = require('lspconfig')
-local cmp = require('cmp')
+local cmp = require'cmp'
 
 -- Configure completions
 cmp.setup({
@@ -33,7 +33,10 @@ cmp.setup({
 -- Setup language servers
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+-- lspconfig.ccls.setup { capabilities = capabilities }
 lspconfig.clangd.setup { capabilities = capabilities }
+vim.keymap.set('n', '<A-o>', '<cmd>ClangdSwitchSourceHeader<cr>')
+lspconfig.texlab.setup { capabilities = capabilities }
 lspconfig.rust_analyzer.setup { capabilities = capabilities }
 lspconfig.hls.setup { capabilities = capabilities }
 lspconfig.pyright.setup { capabilities = capabilities }
@@ -44,7 +47,6 @@ vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d',       vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d',       vim.diagnostic.goto_next)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-vim.keymap.set('n', '<A-o>', '<cmd>ClangdSwitchSourceHeader<cr>')
 
 -- Execute after LSP attaches to current buffer
 vim.api.nvim_create_autocmd('LspAttach', {
