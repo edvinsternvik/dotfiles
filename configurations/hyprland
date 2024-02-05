@@ -6,6 +6,8 @@ xdg-desktop-portal-hyprland
 grim
 slurp
 wl-clipboard
+swaylock
+swayidle
 
 # AUR
 rofi-lbonn-wayland-git
@@ -16,6 +18,7 @@ sudo sed -i 's/^command.*$/command = "tuigreet --cmd Hyprland"/g' /etc/greetd/co
 # DOTFILES
 .config/hypr
 .config/waybar
+.config/swaylock
 
 bin/hyprland-workspaces-src
 
