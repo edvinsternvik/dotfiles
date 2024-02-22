@@ -21,7 +21,6 @@ imv
 dunst
 
 # COMMANDS
-git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 sudo systemctl enable greetd
 sudo sed -i 's/^command.*$/command = "tuigreet --cmd sh"/g' /etc/greetd/config.toml
 chsh -s /bin/fish
