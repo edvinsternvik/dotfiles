@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 
 -- Toggle side terminal
 vim.keymap.set("n", "<leader>fe", "<cmd>Explore<cr>")
