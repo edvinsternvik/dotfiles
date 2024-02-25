@@ -1,8 +1,6 @@
+-- Set leader keys
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
-
--- Toggle side terminal
-vim.keymap.set("n", "<leader>fe", "<cmd>Explore<cr>")
 
 -- Paste over selected without updating any registers
 vim.keymap.set("x", "<leader>p",  "\"_dP")
