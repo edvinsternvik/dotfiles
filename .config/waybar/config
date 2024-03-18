@@ -1,7 +1,6 @@
 {
     "layer": "top",
-    "height": 20,
-    "spacing": 4,
+    "height": 16,
 
     // Choose the order of the modules
     "modules-left": ["hyprland/workspaces"],
@@ -32,7 +31,7 @@
         }
     },
     "tray": {
-        "spacing": 10
+        "spacing": 8
     },
     "clock": {
         "format": "{:%H:%M}  ",
