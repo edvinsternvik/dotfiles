@@ -37,6 +37,7 @@ chsh -s /bin/fish
 .config/mimeapps.list
 
 .local/share/applications
+.local/share/icons
 
 bin/cpInit
 bin/cpRun
