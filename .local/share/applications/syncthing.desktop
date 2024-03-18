@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Syncthing
+Comment=Launches Syncthing
+Icon=syncthing
+Terminal=false
+Exec=syncthing
+Categories=System
