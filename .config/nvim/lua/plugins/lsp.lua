@@ -5,7 +5,12 @@ lspconfig_setup = function(_, opts)
     -- Language servers
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-    lspconfig.clangd.setup        { capabilities = capabilities }
+    lspconfig.clangd.setup        {
+        capabilities = capabilities,
+        settings = {
+            single_file_support = true
+        }
+    }
     lspconfig.texlab.setup        { capabilities = capabilities }
     lspconfig.rust_analyzer.setup { capabilities = capabilities }
     lspconfig.hls.setup           { capabilities = capabilities }
@@ -58,7 +63,7 @@ cmp_setup = function(_, opts)
             ['<C-n>'] = cmp.mapping.select_next_item({cmp.SelectBehavior.Select}),
             ['<C-Space>'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.abort(),
-            ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+            ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         }),
         sources = cmp.config.sources(
             {
