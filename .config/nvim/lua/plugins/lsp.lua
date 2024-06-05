@@ -51,6 +51,12 @@ end
 cmp_setup = function(_, opts)
     local cmp = require("cmp")
     cmp.setup({
+        snippet = {
+            expand = function(args)
+                -- require('luasnip').lsp_expand(args.body)
+                vim.snippet.expand(args.body)
+            end,
+        },
         preselect = cmp.PreselectMode.None,
         window = {
             completion = cmp.config.window.bordered(),
@@ -59,8 +65,8 @@ cmp_setup = function(_, opts)
         mapping = cmp.mapping.preset.insert({
             ['<C-b>'] = cmp.mapping.scroll_docs(-4),
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
-            ['<C-p>'] = cmp.mapping.select_prev_item({cmp.SelectBehavior.Select}),
-            ['<C-n>'] = cmp.mapping.select_next_item({cmp.SelectBehavior.Select}),
+            ['<C-k>'] = cmp.mapping.select_prev_item({cmp.SelectBehavior.Select}),
+            ['<C-j>'] = cmp.mapping.select_next_item({cmp.SelectBehavior.Select}),
             ['<C-Space>'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.abort(),
             ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
@@ -74,6 +80,15 @@ cmp_setup = function(_, opts)
             }
         )
     })
+
+
+    vim.keymap.set({ 'i', 's' }, '<Tab>', function()
+        if vim.snippet.active({ direction = 1 }) then
+            return '<cmd>lua vim.snippet.jump(1)<cr>'
+        else
+            return '<Tab>'
+        end
+    end, { expr = true })
 end
 
 return {
