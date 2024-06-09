@@ -12,11 +12,11 @@ sudo pacman -S \
     greetd-tuigreet \
     ttf-hack-nerd \
     udisks2 \
-    fish \
+    zsh \
     dunst \
 
 sudo systemctl enable greetd
 sudo sed -i 's/^command.*$/command = "tuigreet --cmd sh"/g' /etc/greetd/config.toml
-chsh -s /bin/fish
+chsh -s $(which zsh)
 
 stow base
