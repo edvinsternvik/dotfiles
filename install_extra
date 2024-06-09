@@ -1,0 +1,14 @@
+#!/bin/bash
+
+sudo pacman -S \
+    zathura \
+    zathura-pdf-mupdf \
+    firefox \
+    ncdu \
+    imv \
+    mpv \
+    lf \
+    fzf \
+    ripgrep \
+
+stow extra

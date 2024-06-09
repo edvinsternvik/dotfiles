@@ -1,0 +1,19 @@
+#!/bin/bash
+
+sudo pacman -S \
+    hyprland \
+    waybar \
+    hyprpaper \
+    xdg-desktop-portal-hyprland \
+    grim \
+    slurp \
+    wl-clipboard \
+    hyprlock \
+    hypridle \
+
+yay -S \
+    rofi-lbonn-wayland-git
+
+sudo sed -i 's/^command.*$/command = "tuigreet --cmd Hyprland"/g' /etc/greetd/config.toml
+
+stow hyprland

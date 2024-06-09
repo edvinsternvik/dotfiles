@@ -1,0 +1,11 @@
+#!/bin/bash
+
+sudo pacman -S \
+    ccls \
+    rustup \
+
+curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+rustup toolchain install stable
+rustup component add rust-analyzer
+
+stow dev

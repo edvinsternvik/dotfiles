@@ -1,0 +1,22 @@
+#!/bin/bash
+
+sudo pacman -S \
+    alacritty \
+    neovim \
+    git \
+    stow \
+    tmux \
+    trash-cli \
+    openssh \
+    polkit-kde-agent \
+    greetd-tuigreet \
+    ttf-hack-nerd \
+    udisks2 \
+    fish \
+    dunst \
+
+sudo systemctl enable greetd
+sudo sed -i 's/^command.*$/command = "tuigreet --cmd sh"/g' /etc/greetd/config.toml
+chsh -s /bin/fish
+
+stow base

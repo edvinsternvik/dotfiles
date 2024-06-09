@@ -1,36 +1,3 @@
 # dotfiles
 
-Programs:
-```
-alacritty
-hyprland
-neovim
-git
-rofi
-tmux
-lf
-fzf
-waybar-hyprland-git
-trash-cli
-hyprpaper
-hyprsome
-openssh
-polkit-kde-agent
-ripgrep
-packer.nvim
-zathura
-greetd-tuigreet
-````
-
-Optional program:
-```
-brightnessctl
-firefox
-ncdu
-udisks2
-```
-
-Font:
-```
-ttf-hack-nerd
-```
+Run some or all of the `install_base/dev/...` scripts to install programs, write configuration files, and perform other required setup.
