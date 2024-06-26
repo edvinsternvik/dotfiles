@@ -70,7 +70,7 @@ history = 10000
 multiplier = 3
 
 [shell]
-program = "/usr/bin/tmux"
+program = "tmux"
 
 [window]
 opacity = 0.9
