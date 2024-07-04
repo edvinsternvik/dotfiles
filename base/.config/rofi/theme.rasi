@@ -1,6 +1,6 @@
 * {
     red:                         rgba ( 220, 50, 47, 100 % );
-    selected-active-foreground:  rgba ( 249, 249, 249, 0 % );
+    selected-active-foreground:  rgba ( 50, 172, 255, 100 % );
     lightfg:                     rgba ( 88, 104, 117, 60 % );
     separatorcolor:              rgba ( 29, 31, 33, 0 % );
     urgent-foreground:           rgba ( 204, 102, 102, 0 % );
@@ -19,7 +19,7 @@
     active-foreground:           rgba ( 101, 172, 255, 100 % );
     background:                  rgba ( 25,  23,  25,  90 % );
     selected-normal-background:  rgba ( 133, 37,  36,  40 %);
-    selected-active-background:  rgba ( 68,  145, 237, 100 % );
+    selected-active-background:  rgba ( 133, 37,  36,  60 % );
     active-background:           rgba ( 29,  31,  33,  0 % );
     alternate-normal-background: rgba ( 64,  69,  82,  0 % );
     foreground:                  rgba ( 196, 203, 212, 100 % );
