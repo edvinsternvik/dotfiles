@@ -1,0 +1,81 @@
+#!/bin/bash
+
+# Constants
+DESKTOP_DIR="/usr/share/applications/"
+LOCAL_DESKTOP_DIR="$HOME/.local/share/applications/"
+
+# Functions
+function print_help {
+    SCRIPT_NAME=$(basename $BASH_SOURCE)
+    printf "$SCRIPT_NAME is a script for managing .desktop files\n"
+
+    printf "\nUSAGE:\n"
+    printf "\t$SCRIPT_NAME <USAGE> [FILE MATCH]\n"
+
+    printf "\nUSAGES\n"
+    printf "\tclear\n\t\tRemove the .desktop file from $LOCAL_DESKTOP_DIR.\n\n"
+    printf "\thelp\n\t\tShow this message.\n\n"
+    printf "\thide\n\t\tCopy the .desktop file from $DESKTOP_DIR to $LOCAL_DESKTOP_DIR (if\n\t\tit doesn't already exist) and set Hidden=true.\n\n"
+    printf "\tshow\n\t\tRemove Hidden=true from the .desktop file in $LOCAL_DESKTOP_DIR if it exists.\n\n"
+
+    printf "FILE MATCH\n"
+    printf "\tMatches one or multiple files in $DESKTOP_DIR using the find command.\n\n"
+
+    printf "EXAMPLE\n"
+    printf "\t$SCRIPT_NAME hide -name \"*vim*\" -or -name \"imv*\"\n\n"
+
+    exit
+}
+
+function clear_desktop_files {
+    for desktop_file in $FILES
+    do
+        file_name=$(basename ${desktop_file})
+        local_desktop_file="$LOCAL_DESKTOP_DIR$file_name"
+
+        rm "$local_desktop_file"
+    done
+    exit
+}
+
+function hide_desktop_files {
+    for desktop_file in $FILES
+    do
+        file_name=$(basename ${desktop_file})
+        local_desktop_file="$LOCAL_DESKTOP_DIR$file_name"
+
+        cp -f "$desktop_file" "$local_desktop_file"
+        echo "Hidden=true" >> $local_desktop_file
+    done
+    exit
+}
+
+function show_desktop_files {
+    for desktop_file in $FILES
+    do
+        file_name=$(basename ${desktop_file})
+        local_desktop_file="$LOCAL_DESKTOP_DIR$file_name"
+
+        sed -i '/Hidden=true/d' $local_desktop_file
+    done
+    exit
+}
+
+# Parse arguments
+USAGE="$1"
+shift 1
+
+FILES=$(find $DESKTOP_DIR -maxdepth 1 -type f "$@")
+
+# Make local desktop directory
+mkdir -p $LOCAL_DESKTOP_DIR
+
+# Perform action depending on USAGE
+case "$USAGE" in
+    "clear") clear_desktop_files;;
+    "help") print_help;;
+    "hide") hide_desktop_files;;
+    "show") show_desktop_files;;
+    *) print_help;;
+esac
+
