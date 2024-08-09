@@ -5,7 +5,7 @@
 -- TODO: enable preview on startup
 return {
     'stevearc/oil.nvim',
-    lazy = false,
+    lazy = true,
     opts = {
         delete_to_trash = true,
     },
