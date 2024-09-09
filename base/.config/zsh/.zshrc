@@ -96,3 +96,5 @@ repos=(
   zsh-users/zsh-autosuggestions
 )
 plugin-load $repos
+
+[ -f "/home/edvin/.ghcup/env" ] && . "/home/edvin/.ghcup/env" # ghcup-env
