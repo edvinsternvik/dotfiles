@@ -45,26 +45,6 @@ style = "Italic"
 family = "Hack Nerd Font Mono"
 style = "Regular"
 
-[[keyboard.bindings]]
-action = "ScrollPageUp"
-key = "K"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ScrollPageDown"
-key = "J"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ScrollToBottom"
-key = "H"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ScrollToTop"
-key = "L"
-mods = "Control"
-
 [scrolling]
 history = 10000
 multiplier = 3
