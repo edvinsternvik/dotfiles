@@ -47,6 +47,10 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
+# Allow backspace in instert mode
+bindkey "^H" backward-delete-char
+bindkey "^?" backward-delete-char
+
 # Edit current command in editor
 autoload -Uz edit-command-line
 zle -N edit-command-line
