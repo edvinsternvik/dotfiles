@@ -90,10 +90,10 @@ end
 return {
     {
         "neovim/nvim-lspconfig",
-        event = "InsertEnter",
         dependencies = {
             "nvim-cmp",
         },
+        lazy = false,
         keys = {
             { "<space>e", vim.diagnostic.open_float },
             { "[d",       vim.diagnostic.goto_prev },
