@@ -47,7 +47,10 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-# Allow backspace in instert mode
+# fzf integration
+source <(fzf --zsh)
+
+# Allow backspace in insert mode
 bindkey "^H" backward-delete-char
 bindkey "^?" backward-delete-char
 
