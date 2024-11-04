@@ -22,6 +22,7 @@ return {
                 nnoremap <buffer> <leader>ca :CornelisAuto<CR>
                 nnoremap <buffer> <leader>cb :CornelisPrevGoal<CR>
                 nnoremap <buffer> <leader>cf :CornelisNextGoal<CR>
+                nnoremap <buffer> <leader>cn :CornelisNormalize<CR>
             endfunction
             let g:cornelis_no_agda_input = 1
         ]]

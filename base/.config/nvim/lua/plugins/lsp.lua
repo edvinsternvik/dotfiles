@@ -11,10 +11,9 @@ lspconfig_setup = function(_, opts)
             single_file_support = true
         }
     }
-    lspconfig.texlab.setup        { capabilities = capabilities }
     lspconfig.rust_analyzer.setup { capabilities = capabilities }
     lspconfig.hls.setup           { capabilities = capabilities }
-    lspconfig.pyright.setup       { capabilities = capabilities }
+    lspconfig.pylsp.setup         { capabilities = capabilities }
     lspconfig.tsserver.setup      { capabilities = capabilities }
 
     -- Map keys after LSP attaches to buffer
@@ -31,7 +30,6 @@ lspconfig_setup = function(_, opts)
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
         vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
         vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
         vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
         vim.keymap.set('n', '<space>wl', function()
@@ -65,8 +63,6 @@ cmp_setup = function(_, opts)
         mapping = cmp.mapping.preset.insert({
             ['<C-b>'] = cmp.mapping.scroll_docs(-4),
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
-            ['<C-k>'] = cmp.mapping.select_prev_item({cmp.SelectBehavior.Select}),
-            ['<C-j>'] = cmp.mapping.select_next_item({cmp.SelectBehavior.Select}),
             ['<C-Space>'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.abort(),
             ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
