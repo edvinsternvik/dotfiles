@@ -49,8 +49,10 @@ style = "Regular"
 history = 10000
 multiplier = 3
 
-[shell]
+[terminal.shell]
 program = "tmux"
 
 [window]
 opacity = 0.9
+
+[terminal]
