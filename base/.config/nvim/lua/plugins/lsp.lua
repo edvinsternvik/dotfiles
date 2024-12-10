@@ -14,7 +14,7 @@ lspconfig_setup = function(_, opts)
     lspconfig.rust_analyzer.setup { capabilities = capabilities }
     lspconfig.hls.setup           { capabilities = capabilities }
     lspconfig.pylsp.setup         { capabilities = capabilities }
-    lspconfig.tsserver.setup      { capabilities = capabilities }
+    lspconfig.ts_ls.setup         { capabilities = capabilities }
 
     -- Map keys after LSP attaches to buffer
     vim.api.nvim_create_autocmd('LspAttach', {

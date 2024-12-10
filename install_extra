@@ -10,5 +10,7 @@ sudo pacman -S \
     lf \
     fzf \
     ripgrep \
+    tldr \
+    man \
 
 stow extra
