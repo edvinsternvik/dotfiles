@@ -1,0 +1,12 @@
+#!/bin/bash
+
+swww-daemon --quiet &
+
+cd ~/Pictures/Wallpapers
+while : ; do
+    hyprctl -j monitors | jq -c -r 'map(.["name"])[]' | while read monitor; do
+        file="$(ls * | sort -R | tail -1)"
+        swww img --outputs "$monitor" "$file" --transition-type fade
+    done
+    sleep 3600
+done
