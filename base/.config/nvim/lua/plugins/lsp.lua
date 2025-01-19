@@ -99,7 +99,7 @@ return {
             { "[d",       vim.diagnostic.goto_prev },
             { "]d",       vim.diagnostic.goto_next },
             { "<space>q", vim.diagnostic.setloclist },
-            { "<A-o>", "<cmd>ClangdSwitchSourceHeader<cr>" },
+            { "<space>o", "<cmd>ClangdSwitchSourceHeader<cr>" },
         },
         config = lspconfig_setup,
     },
