@@ -11,13 +11,15 @@ map f fzf_jump
 cmd open ${{
     case $(file --mime-type "$f" -bL) in
         text/*|application/json) $EDITOR "$fx";;
-        *) for f in "$fx"; do nohup xdg-open "$f" > /dev/null 2> /dev/null & done;;
+        *) for f in "$fx"; do nohup mimeopen --no-ask "$f" > /dev/null 2> /dev/null & done;;
     esac
 }}
 
 cmd open-with-gui &$@ $fx ## opens with a gui application outside lf client
 cmd open-with-cli $$@ $fx ## opens with a cli application inside lf client
-map O push :open-with-gui<space> ## input application
+cmd open-ask $mimeopen --ask-default $fx
+
+map O push :open-ask<enter>
 map o push :open-with-cli<space> ## input application
 
 cmd mkdir %mkdir "$@"
