@@ -3,6 +3,9 @@
 sudo pacman -S \
     ccls \
     rustup \
+    texlive-basic texlive-latex texlive texlive-latexrecommended texlive-latexextra \
+    texlive-fontsrecommended texlive-bin  texlive-binextra texlive-mathscience texlive-pictures \
+    typst tinymist
 
 curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 rustup toolchain install stable
