@@ -16,6 +16,7 @@ lspconfig_setup = function(_, opts)
     lspconfig.pylsp.setup         { capabilities = capabilities }
     lspconfig.ts_ls.setup         { capabilities = capabilities }
     lspconfig.tinymist.setup      { capabilities = capabilities }
+    lspconfig.zls.setup           { capabilities = capabilities }
 
     -- Map keys after LSP attaches to buffer
     vim.api.nvim_create_autocmd('LspAttach', {
