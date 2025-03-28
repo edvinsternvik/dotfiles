@@ -56,3 +56,10 @@ program = "tmux"
 opacity = 0.9
 
 [terminal]
+
+[keyboard]
+bindings = [
+    { key = "=", mods = "Control", action = "ResetFontSize" },
+    { key = "+", mods = "Shift|Control", action = "IncreaseFontSize" },
+    { key = "-", mods = "Control", action = "DecreaseFontSize" },
+]
