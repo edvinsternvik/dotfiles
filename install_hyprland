@@ -10,7 +10,8 @@ sudo pacman -S \
     wl-clipboard \
     hyprlock \
     hypridle \
-    rofi-wayland
+    rofi-wayland \
+    dunst \
 
 sudo sed -i 's/^command.*$/command = "tuigreet --cmd Hyprland"/g' /etc/greetd/config.toml
 

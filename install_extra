@@ -12,6 +12,16 @@ sudo pacman -S \
     fzf \
     ripgrep \
     tldr \
-    man \
+    blender freecad inkscape krita \
+    discord \
+    bitwarden \
+    brightnessctl \
+    entr \
+    htop nvtop \
+    piper \
+    pulsemixer \
+    steam minecraft-launcher \
+    unrar unzip \
+    wget \
 
 stow extra

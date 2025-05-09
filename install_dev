@@ -1,12 +1,17 @@
 #!/bin/bash
 
 sudo pacman -S \
-    ccls \
+    ccls cmake clang \
     rustup \
     texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra \
     texlive-fontsrecommended texlive-bin  texlive-binextra texlive-mathscience \
     texlive-pictures texlive-bibtexextra \
-    typst tinymist
+    typst tinymist \
+    ipython python-lsp-server \
+    typescript typescript-language-server \
+    jq \
+    lazygit \
+    zig zls \
 
 curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 rustup toolchain install stable
