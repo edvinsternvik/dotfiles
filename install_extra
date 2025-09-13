@@ -23,5 +23,7 @@ sudo pacman -S \
     steam minecraft-launcher \
     unrar unzip \
     wget \
+    man \
+    man-pages \
 
 stow extra
