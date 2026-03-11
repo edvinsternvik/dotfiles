@@ -1,5 +1,6 @@
 lualine_config = function(_, _)
-    local theme = require('lualine.themes.molokai')
+    local theme = require('lualine.themes.onedark')
+    -- local theme = require('lualine.themes.onelight')
     theme.normal.c.bg = nil
     theme.inactive.c.bg = nil
 
