@@ -13,6 +13,6 @@ sudo pacman -S \
     rofi-wayland \
     dunst \
 
-sudo sed -i 's/^command.*$/command = "tuigreet --cmd Hyprland"/g' /etc/greetd/config.toml
+sudo sed -i 's/^command.*$/command = "tuigreet --cmd start-hyprland"/g' /etc/greetd/config.toml
 
 stow hyprland
