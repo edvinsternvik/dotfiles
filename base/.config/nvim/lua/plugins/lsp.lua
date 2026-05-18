@@ -13,8 +13,6 @@ lspconfig_setup = function(_, opts)
     -- Map keys after LSP attaches to buffer
     vim.api.nvim_create_autocmd('LspAttach', {
       callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
         -- Buffer local mappings.
         local opts = { buffer = ev.buf }
@@ -32,6 +30,7 @@ lspconfig_setup = function(_, opts)
         vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
         vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
         vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
+        vim.keymap.set({ 'n', 'v' }, '<leader>s', vim.lsp.buf.signature_help, opts)
         vim.keymap.set('n', '<leader>cf', function()
           vim.lsp.buf.format { async = true }
         end, opts)
@@ -79,7 +78,6 @@ cmp_setup = function(_, opts)
             }
         )
     })
-
 
     vim.keymap.set({ 'i', 's' }, '<Tab>', function()
         if vim.snippet.active({ direction = 1 }) then
