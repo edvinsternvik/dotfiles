@@ -15,13 +15,6 @@ lspconfig_setup = function(_, opts)
         -- Enable completion triggered by <c-x><c-o>
         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-        -- Disable default mappings
-        vim.keymap.del('n', 'gra')
-        vim.keymap.del('n', 'gri')
-        vim.keymap.del('n', 'grn')
-        vim.keymap.del('n', 'grr')
-        vim.keymap.del('n', 'grt')
-
         -- Buffer local mappings.
         local opts = { buffer = ev.buf }
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
