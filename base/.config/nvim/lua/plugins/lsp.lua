@@ -8,6 +8,7 @@ lspconfig_setup = function(_, opts)
     vim.lsp.enable('ts_ls')
     vim.lsp.enable('tinymist')
     vim.lsp.enable('zls')
+    vim.lsp.enable('ols')
 
     -- Map keys after LSP attaches to buffer
     vim.api.nvim_create_autocmd('LspAttach', {
