@@ -1,7 +1,7 @@
 return {
     'kaarmu/typst.vim',
     ft = 'typst',
-    lazy=false,
+    lazy=true,
     init = function()
         vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
             pattern = {"*.typ"},
