@@ -1,3 +1,29 @@
+function open_or_set_split()
+    local wins = vim.api.nvim_tabpage_list_wins(0)
+    local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
+
+    local current_buf = vim.api.nvim_get_current_buf()
+    local current_win = vim.api.nvim_get_current_win()
+
+    local target_win
+
+    if #wins >= 2 then
+        for _, win_num in pairs(wins) do
+            if win_num ~= current_win then
+                target_win = win_num
+                break
+            end
+        end
+    else
+        vim.cmd("vsplit")
+        target_win = vim.api.nvim_get_current_win()
+    end
+
+    vim.api.nvim_win_set_buf(target_win, current_buf)
+    vim.api.nvim_win_set_cursor(target_win, current_cursor_pos)
+    vim.api.nvim_set_current_win(target_win)
+end
+
 -- Configuration for lspconfig
 lspconfig_setup = function(_, opts)
     -- Language servers
@@ -34,6 +60,13 @@ lspconfig_setup = function(_, opts)
         vim.keymap.set('n', '<leader>cf', function()
           vim.lsp.buf.format { async = true }
         end, opts)
+
+          vim.keymap.set('n', 'gv', function()
+              open_or_set_split()
+              vim.lsp.buf.definition()
+          end, opts)
+
+
       end,
     })
 end
