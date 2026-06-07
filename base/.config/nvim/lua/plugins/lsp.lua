@@ -61,10 +61,10 @@ lspconfig_setup = function(_, opts)
           vim.lsp.buf.format { async = true }
         end, opts)
 
-          vim.keymap.set('n', 'gv', function()
-              open_or_set_split()
-              vim.lsp.buf.definition()
-          end, opts)
+        vim.keymap.set('n', 'gsd', function()
+            open_or_set_split()
+            vim.lsp.buf.definition()
+        end, opts)
 
 
       end,
