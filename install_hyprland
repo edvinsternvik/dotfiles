@@ -3,15 +3,17 @@
 sudo pacman -S \
     hyprland \
     waybar \
-    swww \
+    awww \
     xdg-desktop-portal-hyprland \
     grim \
     slurp \
     wl-clipboard \
     hyprlock \
     hypridle \
-    rofi-wayland \
+    rofi \
     dunst \
+    hyprpolkitagent \
+    thunar \
 
 sudo sed -i 's/^command.*$/command = "tuigreet --cmd start-hyprland"/g' /etc/greetd/config.toml
 
