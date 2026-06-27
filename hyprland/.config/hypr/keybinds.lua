@@ -35,10 +35,10 @@ hl.bind(main_mod .. " + L", hl.dsp.focus({ direction = "right" }))
 hl.bind(main_mod .. " + TAB", hl.dsp.window.cycle_next({ }))
 
 -- Window resize
-hl.bind(main_mod .. " + CTRL + H", hl.dsp.window.resize({ x = -resize_increment, y = 0, relative = true }))
-hl.bind(main_mod .. " + CTRL + J", hl.dsp.window.resize({ x = 0, y = -resize_increment, relative = true }))
-hl.bind(main_mod .. " + CTRL + K", hl.dsp.window.resize({ x = 0, y = resize_increment, relative = true }))
-hl.bind(main_mod .. " + CTRL + L", hl.dsp.window.resize({ x = resize_increment, y = 0, relative = true }))
+hl.bind(main_mod .. " + CTRL + H", hl.dsp.window.resize({ x = -resize_increment, y = 0, relative = true }), { repeating = true })
+hl.bind(main_mod .. " + CTRL + J", hl.dsp.window.resize({ x = 0, y = -resize_increment, relative = true }), { repeating = true })
+hl.bind(main_mod .. " + CTRL + K", hl.dsp.window.resize({ x = 0, y = resize_increment, relative = true }), { repeating = true })
+hl.bind(main_mod .. " + CTRL + L", hl.dsp.window.resize({ x = resize_increment, y = 0, relative = true }), { repeating = true })
 
 -- Workspace
 for i = 1, num_workspaces do
